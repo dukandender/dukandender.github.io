@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VIP Challenge</title>
+  <style>
+    .question { display: none; margin-bottom: 20px; }
+    #vipZone { display: none; }
+  </style>
+</head>
+<body bgcolor="#BFBFBF" alink="#000099" link="#000099" vlink="#990099">
+<center>
+  <h2>VIP Zone Quiz</h2>
+  <div id="quizContainer">
+    <form id="quizForm">
+      <!-- Q1: Multiple Choice -->
+      <div class="question" id="q1">
+        <big><b>1. Which roll on this list would Anthony Dender most likely order?</b></big><br><br>
+        <img src="rolls.jpg" width="600">
+        <br>
+        <input type="radio" name="q1" value="lemur"> Crunch Roll<br>
+        <input type="radio" name="q1" value="binturong"> Flaming Dragon<br>
+        <input type="radio" name="q1" value="quokka"> Tokyo Roll<br>
+        <input type="radio" name="q1" value="quokka"> Spicy Tuna Roll<br>
+        <br><button type="button" onclick="nextQuestion('q1')">Next</button>
+      </div>
+
+      <!-- Q2: Text -->
+      <div class="question" id="q2">
+        <big><b>2. Which of these facts about The Gipper is NOT true?</b></big><br><br>
+        <img src="gip.jpg" width="400">
+        <br>
+        <input type="radio" name="q2" value="ljubljana"> He was obsessed with jelly beans<br>
+        <input type="radio" name="q2" value="ljubljana"> He owned a pet parrot that had to be removed from his funeral for cursing too loud <br>
+        <input type="radio" name="q2" value="william henry harrison"> He once claimed trees cause more pollution than cars<br>
+        <input type="radio" name="q2" value="ljubljana"> He will gip you<br>
+        <br><button type="button" onclick="nextQuestion('q2')">Next</button>
+      </div>
+
+      <!-- Q3: Multiple Choice -->
+      <div class="question" id="q3">
+        <big><b>3. What is the name of the following theorem in geometric group theory?</b></big><br><br>
+        <img src="theorem.png" width="600">
+        <br>
+        <input type="radio" name="q3" value="belgrade"> Gromov's theorem on groups of polynomial growth<br>
+        <input type="radio" name="q3" value="zagreb"> Stallings' theorem<br>
+        <input type="radio" name="q3" value="ljubljana"> PEMDAS<br>
+        <input type="radio" name="q3" value="zagreb"> No-ghost theorem<br>
+        <br><button type="button" onclick="nextQuestion('q3')">Next</button>
+      </div>
+
+      <!-- Q4: Text -->
+      <div class="question" id="q4">
+        <big><b>4. Which of these countries has Anthony Dender NEVER stepped foot in?</b></big><br><br>
+        <input type="radio" name="q4" value="topology"> Bosnia and Herzegovina<br>
+        <input type="radio" name="q4" value="topology"> Czechia<br>
+        <input type="radio" name="q4" value="james garfield"> Hungary<br>
+        <input type="radio" name="q4" value="topology"> United States of America<br>
+        <br><button type="button" onclick="nextQuestion('q4')">Next</button>
+      </div>
+
+      <!-- Q5: Multiple Choice -->
+      <div class="question" id="q5">
+        <big><b>5. What is the name of this cat?</b></big><br><br>
+        <img src="cat.jpg" width="600">
+        <br>
+        <input type="radio" name="q5" value="topology"> Sasha<br>
+        <input type="radio" name="q5" value="e"> Sylvie<br>
+        <input type="radio" name="q5" value="f"> Sandy<br>
+        <input type="radio" name="q5" value="geometry"> Sophie<br>
+        <br><button type="button" onclick="nextQuestion('q5')">Next</button>
+      </div>
+
+      <!-- Q6: Text -->
+      <div class="question" id="q6">
+        <big><b>6. Which country is this the flag of?</b></big><br><br>
+        <img src="flag.png" width="600">
+        <br>
+        <input type="radio" name="q6" value="rarr"> Senegal<br>
+        <input type="radio" name="q6" value="master of advanced study"> Suriname<br>
+        <input type="radio" name="q6" value="gesgesg"> Burkina Faso<br>
+        <input type="radio" name="q6" value="faso"> Myanmar<br>
+        <br><button type="button" onclick="nextQuestion('q6')">Next</button>
+      </div>
+
+      <!-- Q7: Multiple Choice -->
+      <div class="question" id="q7">
+        <big><b>7. In what number of languages has Anthony Dender earned more than 1000 XP on Duolingo?</b></big><br><br>
+        <input type="radio" name="q7" value="nyu"> 2<br>
+        <input type="radio" name="q7" value="nevada youth union"> 5<br>
+        <input type="radio" name="q7" value="new york university"> 13<br>
+        <input type="radio" name="q7" value="national yachting unit"> 26<br>
+        <br><button type="button" onclick="nextQuestion('q7')">Next</button>
+      </div>
+
+      <!-- Q8: Text -->
+      <div class="question" id="q8">
+        <big><b>8. According to the official <a href="https://news.disney.com/quiz-which-disney-princess-are-you" target="_blank" rel="noopener noreferrer">quiz on disney.com</a>, which disney princess is Anthony Dender?</b></big><br><br>
+        <input type="radio" name="q8" value="fox"> Pocahontas<br>
+        <input type="radio" name="q8" value="nevada youth union"> Aurora<br>
+        <input type="radio" name="q8" value="new york university"> Belle<br>
+        <input type="radio" name="q8" value="national yachting unit"> Tiana<br>
+        <button type="button" onclick="nextQuestion('q8')">Next</button>
+      </div>
+
+      <!-- Q9: Multiple Choice -->
+      <div class="question" id="q9">
+        <big><b>9. Which of these is NOT a former Minecraft username of Anthony Dender?</b></big><br><br>
+        <input type="radio" name="q9" value="coeur"> qogger <br>
+        <input type="radio" name="q9" value="âme"> cool_cool_cool_<br>
+        <input type="radio" name="q9" value="tête"> miencwaf<br>
+        <input type="radio" name="q9" value="more"> gorilaman2469<br>
+        <input type="radio" name="q9" value="tête"> hop_to_the_bop<br>
+        <input type="radio" name="q9" value="tête"> MineCraft7779<br>
+        <input type="radio" name="q9" value="tête"> ImBeowulf<br>
+        <br><button type="button" onclick="nextQuestion('q9')">Next</button>
+      </div>
+
+      <!-- Q10: Text -->
+      <div class="question" id="q10">
+        <big><b>10. In general, a space X being geodesic does not guarantee that all maximal undergeodesics in X are geodesics. Which of the following additional conditions on X do guarantee this?</b></big><br><br>
+        <input type="radio" name="q10" value="7"> X is locally compact. <br>
+        <input type="radio" name="q10" value="5"> X is second countable. <br>
+        <input type="radio" name="q10" value="5"> X is complete. <br>
+        <input type="radio" name="q10" value="5"> X is equal to 3. <br>
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </div>
+    </form>
+    <p id="feedback" style="color: red;"></p>
+  </div>
+
+  <div id="vipZone">
+    <hr style="width: 100%; height: 2px;">
+    <h2>Welcome to the VIP Zone.</h2>
+    <p><big>
+      This is the space for true Dender acolytes. Under construction.
+    </big></p>
+    <hr style="width: 100%; height: 2px;">
+  </div>
+</center>
+
+<script>
+  const answers = {
+    q1: "binturong",
+    q2: "william henry harrison",
+    q3: "zagreb",
+    q4: "james garfield",
+    q5: "geometry",
+    q6: "master of advanced study",
+    q7: "new york university",
+    q8: "fox",
+    q9: "more",
+    q10: "7"
+  };
+
+  let currentQuestion = 1;
+
+  function showQuestion(num) {
+    const q = document.getElementById('q' + num);
+    if (q) q.style.display = 'block';
+  }
+
+  function nextQuestion(currentId) {
+    const current = document.getElementById(currentId);
+    const form = document.forms['quizForm'];
+    const val = form[currentId].value || form[currentId].value === "" ? form[currentId].value : null;
+    const radios = form[currentId];
+    if (radios && radios.length) {
+      let selected = false;
+      for (let r of radios) if (r.checked) selected = true;
+      if (!selected) return;
+    } else if (val.trim() === "") {
+      return;
+    }
+    current.style.display = 'none';
+    currentQuestion++;
+    showQuestion(currentQuestion);
+  }
+
+  function submitQuiz() {
+  const form = document.forms['quizForm'];
+  let score = 0;
+  for (let key in answers) {
+    let userVal = "";
+    const element = form[key];
+    if (!element) continue;
+
+    if (element.length && element[0].type === "radio") {
+      for (let radio of element) {
+        if (radio.checked) {
+          userVal = radio.value.trim().toLowerCase();
+          break;
+        }
+      }
+    } else {
+      userVal = element.value.trim().toLowerCase();
+    }
+
+    if (userVal === answers[key]) {
+      score++;
+    }
+  }
+
+  const percent = (score / 10) * 100;
+  const feedback = document.getElementById('feedback');
+  const q10 = document.getElementById('q10');
+
+  if (percent >= 80) {
+    document.getElementById('quizContainer').style.display = 'none';
+    document.getElementById('vipZone').style.display = 'block';
+  } else {
+    if (q10) q10.style.display = 'none';
+    feedback.innerHTML = `
+      <big>You scored ${score}/10. You needed 8 or more to pass. Access denied.</big>
+      <br><br>
+      <big><i>You do, however, get access to the exclusive Anthony Dender Hater Zone (Coming soon).</i></big>
+    `;
+  }
+}
+
+  // Start with question 1
+  showQuestion(1);
+</script>
+
+</body>
+</html>
