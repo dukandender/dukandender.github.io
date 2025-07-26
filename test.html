@@ -152,28 +152,42 @@
   font-weight: bold;
   cursor: pointer;
 }
-#volume-toggle {
+#volume-toggle-wrapper {
   position: fixed;
   bottom: 15px;
   right: 15px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#volume-toggle {
   width: 30px;
   height: 30px;
-  cursor: pointer;
-  z-index: 1000;
-  opacity: 0.7;
+  opacity: 0.85;
 }
-#volume-toggle:hover::after {
-  content: "Click to play ambient music";
+
+/* Tooltip on wrapper */
+#volume-toggle-wrapper::after {
+  content: attr(data-tooltip);
   position: absolute;
-  bottom: 35px;
-  right: 0;
-  background: #333;
+  right: 35px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background-color: #333;
   color: white;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Segoe UI', sans-serif;
   white-space: nowrap;
-  opacity: 0.9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#volume-toggle-wrapper:hover::after {
+  opacity: 1;
 }
 </style>
 
@@ -343,8 +357,9 @@ function showTab(section, tab) {
   }
 </script>
 <!-- Volume Icon -->
-<img id="volume-toggle" src="/muted-icon.png" alt="Volume icon">
-
+<div id="volume-toggle-wrapper" data-tooltip="Click to play relaxing smooth jazz">
+  <img id="volume-toggle" src="/muted-icon.png" onclick="toggleMusic()" alt="Vol">
+</div>
 <!-- Audio -->
 <audio id="ambient-audio" loop>
   <source src="/ambient-track.mp3" type="audio/mpeg">
@@ -367,5 +382,6 @@ function showTab(section, tab) {
     isPlaying = !isPlaying;
   });
 </script>
+
 </body>
 </html>
