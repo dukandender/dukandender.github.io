@@ -1,51 +1,371 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Anthony Dender</title>
-  <style>
-    body {
-      background-color: #cccccc;
-      color: #000000;
-      font-family: monospace;
-      font-size: 14px;
-      margin: 2em;
-    }
-    a {
-      color: #0000cc;
-    }
-    hr {
-      margin: 2em 0;
-    }
-    h1, h2 {
-      font-weight: normal;
-    }
-  </style>
+  <meta charset="iso-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Bluefish 1.0.7">
+  <title>Dender's Domain</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap');
+
+.entry-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 500px;
+  height: 100%;
+  background: #FFF;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+  transition: right 0.2s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+.popup.open {
+  right: 0;
+}
+.popup.transitioning {
+  transition: right 0.2s ease;
+}
+
+  body {
+    background-color: #BFBFBF;
+    color: black;
+    font-family: serif;
+    text-align: center;
+  }
+  a {
+    color: #000099;
+  }
+  a:visited {
+    color: #990099;
+  }
+  hr {
+    height: 2px;
+    border: 0;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #ffffff;
+    width: 100%;
+  }
+  .math-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+.entry {
+  background-color: #E0E0E0;
+  border: 2px solid #999;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.entry img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #666;
+}
+.entry-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.entry-buttons {
+  margin-top: 10px;
+}
+.entry-buttons button {
+  margin: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 1em;
+  border: 1px solid #888;
+  border-radius: 6px;
+  background-color: #e4e4e4;
+  color: #222;
+  min-width: 140px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.entry-buttons button:hover {
+  background-color: #d2d2d2;
+  color: #000099;
+  border-color: #666;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 500px;
+  height: 100%;
+  background: #FFF;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+  transition: right 0.2s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+.popup.open {
+  right: 0;
+}
+.popup .tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+.popup .tabs button {
+  padding: 10px;
+  font-weight: bold;
+  width: 45%;
+  cursor: pointer;
+}
+.popup .explanation {
+  display: none;
+}
+.popup .explanation.active {
+  display: block;
+}
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ccc;
+  border: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#volume-toggle {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0.7;
+}
+#volume-toggle:hover::after {
+  content: "Click to play ambient music";
+  position: absolute;
+  bottom: 35px;
+  right: 0;
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+</style>
+
 </head>
 <body>
-  <h1>Anthony Dender</h1>
-  <p>Here are some PDFs:</p>
-  <ul>
-    <li><a href="/Mind.pdf">Mind.pdf</a></li>
-    <li><a href="/Soul.pdf">Soul.pdf</a></li>
-    <li><a href="/Curriculum.pdf">Curriculum.pdf</a></li>
-  </ul>
+  <h2>Dr. Professor Anthony Dukan "(Big) Tony D" Dender, B.A. B.A. MASt M.A. Ph.D.</h2>
+
+  <p><big><br>
+  <b>Office:</b> High Regency of Swirles Court upon Wellington, Flat 422<br>
+  <b>Email:</b> <span id="email"></span><br>
+  <b>Telephone:</b> <span id="phone"></span></big><br>
+  </p>
 
   <hr>
+  <p>&nbsp;
+  <big><br></big></p>
 
-  <h2>Future Plans</h2>
-  <ul>
-    <li>A quiz</li>
-    <li>A survey that stores responses</li>
-    <li>A gallery of Crossy Road highscores</li>
-    <li>Optional comments section</li>
-    <li>Maybe sounds, maybe not</li>
-    <li>A binturong? Who knows.</li>
-  </ul>
-
+  <p><big>
+  First Croatian to win NYU's French Award. Research focus: effects of Ricci curvature and mean geodesic flow on the presidency of William McKinley. Generalized James Garfield's proof of the Pythagorean theorem to a hyperbolic setting.
+  </big></p>
+  <a href="/Curriculum.pdf" target="_blank">Curriculum Vitae</a>
+  </big><br></p>
+  <br>
   <hr>
+  <br><br>
 
-  <p>This site is still mostly gray. That is intentional.</p>
-  <p>Site by Anthony Dender. No frameworks were harmed.</p>
+  <p><h2>Craftsmanship</h2>
+<div class="math-section">
+  <div class="entry">
+    <img src="/mind-thumb.png" alt="Scary lines approaching a peaceful dotted line">
+    <div class="entry-text">
+      <div class="entry-title">"A Vision Into My Mind"</div>
+      <div class="entry-buttons">
+        <a href="/Mind.pdf" target="_blank"><button>Direct Link</button></a>
+        <button onclick="openPopup('mind')">Explanation</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <img src="/soul-thumb.png" alt="To be honest I don't know what this is">
+    <div class="entry-text">
+      <div class="entry-title">"A Glimpse Into My Soul"</div>
+      <div class="entry-buttons">
+        <a href="/Soul.pdf" target="_blank"><button>Direct Link</button></a>
+        <button onclick="openPopup('soul')">Explanation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <p>&nbsp;
+  <big><br></big></p>
+<hr>
+  <big><br></big></p>
+  <p><big>
+  Special content:<br>
+  <a href="/vip.html" target="_blank">VIP Zone</a>
+  </big></p>
+
+  <script>
+    // Light scraping obfuscation
+    const user = "dukandender";
+    const domain = "gmail.com";
+    const phone = "443\u2011602\u20110800";
+    document.getElementById("email").textContent = user + "@" + domain;
+    document.getElementById("phone").textContent = phone;
+  </script>
+
+  <script>
+function toggleExplanation(id) {
+  const section = document.getElementById(id + '-explanation');
+  section.style.display = section.style.display === 'none' ? 'block' : 'none';
+}
+
+function showTab(section, tab) {
+  const tabs = ['mathy', 'chill'];
+  tabs.forEach(t => {
+    document.getElementById(`${section}-${t}`).style.display = (t === tab ? 'block' : 'none');
+  });
+}
+</script>
+<!-- Popup container -->
+<div id="popup-container" class="popup">
+  <button class="close-btn" onclick="closePopup()">X</button>
+  <div class="tabs">
+    <button onclick="showExplanation('mathy')">🧠 Mathematician</button>
+    <button onclick="showExplanation('casual')">🧃 Casual Friend</button>
+  </div>
+  <div id="mathy" class="explanation">
+    <p><i>Formal explanation will appear here.</i></p>
+  </div>
+  <div id="casual" class="explanation">
+    <p><i>Casual explanation will appear here.</i></p>
+  </div>
+</div>
+<script>
+  const popup = document.getElementById("popup-container");
+  const mathy = document.getElementById("mathy");
+  const casual = document.getElementById("casual");
+  const explanations = {
+    mind: {
+      mathy: "This paper studies a novel structure on metric measure spaces inspired by Ricci curvature bounds and the mean geodesic flow, with particular application to the topological and metric characterization of 'presidential surfaces'.",
+      casual: "Basically, I was trying to find a weird connection between geometry and politics. It's math-heavy but kind of poetic in its logic. Trust me, it made sense at the time."
+    },
+    soul: {
+      mathy: "A work-in-progress attempt to generalize variational principles in a non-Euclidean context using undergeodesics and related flow dynamics.",
+      casual: "Still figuring this one out, but it's about following the 'soul' of curves in weird spaces. Like watching how shapes move when the rules of space are different."
+    }
+  };
+
+  let currentDoc = null;
+
+  function openPopup(doc) {
+    const button = getButton(doc);
+    const otherButton = getButton(currentDoc);
+
+    if (popup.classList.contains("open") && currentDoc === doc) {
+      // Close if already open for same doc
+      popup.classList.remove("open");
+      currentDoc = null;
+      button.textContent = "Explanation";
+    } else {
+      if (currentDoc && currentDoc !== doc) {
+        // Close animation for current, then open new
+        popup.classList.remove("open");
+        if (otherButton) otherButton.textContent = "Explanation";
+        popup.classList.add("transitioning");
+        setTimeout(() => {
+          updateContent(doc);
+          popup.classList.add("open");
+          popup.classList.remove("transitioning");
+        }, 400);
+      } else {
+        updateContent(doc);
+        popup.classList.add("open");
+      }
+      button.textContent = "Close";
+      currentDoc = doc;
+    }
+  }
+
+  function updateContent(doc) {
+    mathy.innerHTML = `<p>${explanations[doc].mathy}</p>`;
+    casual.innerHTML = `<p>${explanations[doc].casual}</p>`;
+    showExplanation("mathy");
+  }
+
+  function closePopup() {
+    popup.classList.remove("open");
+    if (currentDoc) {
+      const btn = getButton(currentDoc);
+      if (btn) btn.textContent = "Explanation";
+    }
+    currentDoc = null;
+  }
+
+  function showExplanation(type) {
+    mathy.classList.remove("active");
+    casual.classList.remove("active");
+    document.getElementById(type).classList.add("active");
+  }
+
+  function getButton(doc) {
+    return document.querySelector(`button[onclick="openPopup('${doc}')"]`);
+  }
+</script>
+<!-- Volume Icon -->
+<img id="volume-toggle" src="/muted-icon.png" alt="Volume icon">
+
+<!-- Audio -->
+<audio id="ambient-audio" loop>
+  <source src="/ambient-track.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const toggle = document.getElementById('volume-toggle');
+  const audio = document.getElementById('ambient-audio');
+  let isPlaying = false;
+
+  toggle.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      toggle.src = '/muted-icon.png';
+    } else {
+      audio.play();
+      toggle.src = '/volume-icon.png';
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
 </body>
 </html>
