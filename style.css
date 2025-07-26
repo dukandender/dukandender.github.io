@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap');
+
+.entry-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 500px;
+  height: 100%;
+  background: #FFF;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+  transition: right 0.2s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+.popup.open {
+  right: 0;
+}
+.popup.transitioning {
+  transition: right 0.2s ease;
+}
+
+  body {
+    background-color: #BFBFBF;
+    color: black;
+    font-family: serif;
+    text-align: center;
+  }
+  a {
+    color: #000099;
+  }
+  a:visited {
+    color: #990099;
+  }
+  hr {
+    height: 2px;
+    border: 0;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #ffffff;
+    width: 100%;
+  }
+  .math-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+.entry {
+  background-color: #E0E0E0;
+  border: 2px solid #999;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.entry img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #666;
+}
+.entry-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.entry-buttons {
+  margin-top: 10px;
+}
+.entry-buttons button {
+  margin: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 1em;
+  border: 1px solid #888;
+  border-radius: 6px;
+  background-color: #e4e4e4;
+  color: #222;
+  min-width: 140px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.entry-buttons button:hover {
+  background-color: #d2d2d2;
+  color: #000099;
+  border-color: #666;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 500px;
+  height: 100%;
+  background: #FFF;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+  transition: right 0.2s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+.popup.open {
+  right: 0;
+}
+.popup .tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+.popup .tabs button {
+  padding: 10px;
+  font-weight: bold;
+  width: 45%;
+  cursor: pointer;
+}
+.popup .explanation {
+  display: none;
+}
+.popup .explanation.active {
+  display: block;
+}
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ccc;
+  border: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#volume-toggle-wrapper {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#volume-toggle {
+  width: 30px;
+  height: 30px;
+  opacity: 0.85;
+}
+
+/* Tooltip on wrapper */
+#volume-toggle-wrapper::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 35px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background-color: #333;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Segoe UI', sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#volume-toggle-wrapper:hover::after {
+  opacity: 1;
+}
+
+.about-blurb {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 1.05em;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.cv-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 6px 12px;
+  font-size: 0.95em;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e4e4e4;
+  border: 1px solid #888;
+  border-radius: 5px;
+  color: #222;
+  text-decoration: none;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  transition: background-color 0.2s ease;
+}
+
+.cv-link:hover {
+  background-color: #d0d0d0;
+  color: #000099;
+}
+
+.popup-link {
+  color: #000099;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.popup-link:hover {
+  color: #990099;
+}

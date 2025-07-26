@@ -5,198 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Bluefish 1.0.7">
   <title>Dender's Domain</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap');
-
-.entry-title {
-  font-family: 'EB Garamond', serif;
-  font-size: 1.4em;
-  font-weight: 500;
-  margin-bottom: 5px;
-  font-style: italic;
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 80%;
-  max-width: 500px;
-  height: 100%;
-  background: #FFF;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
-  z-index: 999;
-  transition: right 0.2s ease;
-  padding: 20px;
-  overflow-y: auto;
-}
-.popup.open {
-  right: 0;
-}
-.popup.transitioning {
-  transition: right 0.2s ease;
-}
-
-  body {
-    background-color: #BFBFBF;
-    color: black;
-    font-family: serif;
-    text-align: center;
-  }
-  a {
-    color: #000099;
-  }
-  a:visited {
-    color: #990099;
-  }
-  hr {
-    height: 2px;
-    border: 0;
-    border-top: 1px solid #808080;
-    border-bottom: 1px solid #ffffff;
-    width: 100%;
-  }
-  .math-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  margin-top: 30px;
-}
-.entry {
-  background-color: #E0E0E0;
-  border: 2px solid #999;
-  width: 90%;
-  max-width: 500px;
-  padding: 20px;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-.entry img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 1px solid #666;
-}
-.entry-title {
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-.entry-buttons {
-  margin-top: 10px;
-}
-.entry-buttons button {
-  margin: 5px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 1em;
-  border: 1px solid #888;
-  border-radius: 6px;
-  background-color: #e4e4e4;
-  color: #222;
-  min-width: 140px;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: all 0.2s ease;
-}
-
-.entry-buttons button:hover {
-  background-color: #d2d2d2;
-  color: #000099;
-  border-color: #666;
-}
-.popup {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 80%;
-  max-width: 500px;
-  height: 100%;
-  background: #FFF;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
-  z-index: 999;
-  transition: right 0.2s ease;
-  padding: 20px;
-  overflow-y: auto;
-}
-.popup.open {
-  right: 0;
-}
-.popup .tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 15px;
-}
-.popup .tabs button {
-  padding: 10px;
-  font-weight: bold;
-  width: 45%;
-  cursor: pointer;
-}
-.popup .explanation {
-  display: none;
-}
-.popup .explanation.active {
-  display: block;
-}
-.popup .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ccc;
-  border: none;
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-#volume-toggle-wrapper {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  z-index: 1000;
-  cursor: pointer;
-}
-
-#volume-toggle {
-  width: 30px;
-  height: 30px;
-  opacity: 0.85;
-}
-
-/* Tooltip on wrapper */
-#volume-toggle-wrapper::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  right: 35px;
-  bottom: 50%;
-  transform: translateY(50%);
-  background-color: #333;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-family: 'Segoe UI', sans-serif;
-  white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-#volume-toggle-wrapper:hover::after {
-  opacity: 1;
-}
-</style>
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
   <h2>Dr. Professor Anthony Dukan "(Big) Tony D" Dender, B.A. B.A. MASt M.A. Ph.D.</h2>
 
   <p><big><br>
-  <b>Office:</b> High Regency of Swirles Court upon Wellington, Flat 422<br>
+  <b>Office:</b> <a href="#" class="popup-link" onclick="openPopup('house')">High Regency of Swirles Court upon Wellington</a>, Flat 422<br>
   <b>Email:</b> <span id="email"></span><br>
   <b>Telephone:</b> <span id="phone"></span></big><br>
   </p>
@@ -205,9 +21,11 @@
   <p>&nbsp;
   <big><br></big></p>
 
-  <p><big>
+  <p>
+  <p class="about-blurb">
   First Croatian to win NYU's French Award. Research focus: effects of Ricci curvature and mean geodesic flow on the presidency of William McKinley. Generalized James Garfield's proof of the Pythagorean theorem to a hyperbolic setting.
-  </big></p>
+</p>
+  </p><big>
   <a href="/Curriculum.pdf" target="_blank">Curriculum Vitae</a>
   </big><br></p>
   <br>
@@ -275,8 +93,8 @@ function showTab(section, tab) {
 <div id="popup-container" class="popup">
   <button class="close-btn" onclick="closePopup()">X</button>
   <div class="tabs">
-    <button onclick="showExplanation('mathy')">🧠 Mathematician</button>
-    <button onclick="showExplanation('casual')">🧃 Casual Friend</button>
+    <button onclick="showExplanation('mathy')">For mathematicians</button>
+    <button onclick="showExplanation('casual')">For non-mathematicians</button>
   </div>
   <div id="mathy" class="explanation">
     <p><i>Formal explanation will appear here.</i></p>
@@ -297,6 +115,10 @@ function showTab(section, tab) {
     soul: {
       mathy: "A work-in-progress attempt to generalize variational principles in a non-Euclidean context using undergeodesics and related flow dynamics.",
       casual: "Still figuring this one out, but it's about following the 'soul' of curves in weird spaces. Like watching how shapes move when the rules of space are different."
+    },
+    house: {
+      mathy: '<img src="/posh-house.jpg" alt="A very posh building" style="width:100%; border:1px solid #888;">',
+     casual: '<img src="/posh-house.jpg" alt="A very posh building" style="width:100%; border:1px solid #888;">'
     }
   };
 
@@ -324,7 +146,15 @@ function showTab(section, tab) {
         }, 400);
       } else {
         updateContent(doc);
-        popup.classList.add("open");
+        const tabs = document.querySelector('.tabs');
+if (doc === 'house') {
+  tabs.style.display = 'none';
+} else {
+  tabs.style.display = 'flex';
+}
+
+popup.classList.add("open");
+
       }
       button.textContent = "Close";
       currentDoc = doc;
@@ -334,7 +164,16 @@ function showTab(section, tab) {
   function updateContent(doc) {
     mathy.innerHTML = `<p>${explanations[doc].mathy}</p>`;
     casual.innerHTML = `<p>${explanations[doc].casual}</p>`;
-    showExplanation("mathy");
+    if (doc === 'house') {
+  mathy.innerHTML = explanations.house.mathy;
+  casual.innerHTML = '';
+  mathy.classList.add('active');
+  casual.classList.remove('active');
+} else {
+  mathy.innerHTML = `<p>${explanations[doc].mathy}</p>`;
+  casual.innerHTML = `<p>${explanations[doc].casual}</p>`;
+  showExplanation("mathy");
+}
   }
 
   function closePopup() {
