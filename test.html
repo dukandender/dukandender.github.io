@@ -9,7 +9,7 @@
 
 </head>
 <body>
-  <h2>Dr. Professor Anthony Dukan "(Big) Tony D" Dender, B.A. B.A. MASt M.A. Ph.D.</h2>
+  <h2>Dr. Professor Anthony Dukan "Big Tony D" Dender, B.A. B.A. MASt M.A. Ph.D.</h2>
 
   <p><big><br>
   <b>Office:</b> <a href="#" class="popup-link" onclick="openPopup('house')">High Regency of Swirles Court upon Wellington</a>, Flat 422<br>
@@ -39,7 +39,7 @@
     <div class="entry-text">
       <div class="entry-title">"A Vision Into My Mind"</div>
       <div class="entry-buttons">
-        <a href="/Mind.pdf" target="_blank"><button>Direct Link</button></a>
+        <a href="/Mind.pdf" target="_blank"><button>PDF</button></a>
         <button onclick="openPopup('mind')">Explanation</button>
       </div>
     </div>
@@ -50,7 +50,7 @@
     <div class="entry-text">
       <div class="entry-title">"A Glimpse Into My Soul"</div>
       <div class="entry-buttons">
-        <a href="/Soul.pdf" target="_blank"><button>Direct Link</button></a>
+        <a href="/Soul.pdf" target="_blank"><button>PDF</button></a>
         <button onclick="openPopup('soul')">Explanation</button>
       </div>
     </div>
@@ -109,12 +109,53 @@ function showTab(section, tab) {
   const casual = document.getElementById("casual");
   const explanations = {
     mind: {
-      mathy: "This paper studies a novel structure on metric measure spaces inspired by Ricci curvature bounds and the mean geodesic flow, with particular application to the topological and metric characterization of 'presidential surfaces'.",
-      casual: "Basically, I was trying to find a weird connection between geometry and politics. It's math-heavy but kind of poetic in its logic. Trust me, it made sense at the time."
+      mathy: `<div style="font-size: 1.05em; text-align: left; max-width: 680px; margin: 0 auto;">
+      <p><b><i>A Vision Into My Mind</i></b> is the name I've given to a slightly disorganized paper of mine. This paper attempts to expand various fundamental definitions and concepts in metric geometry to a setting where geodesics may be sparse or nonexistent. Think &Qopf;<sup>2</sup>.</p>
+
+      <p>The fundamental concept in this paper is that of an <b>undergeodesic</b> in a metric space, which is defined as an isometric embedding from <i>any subset</i> of an interval into the space whose domain contains both endpoints of that interval.</p>
+
+      <p>The document is divided into seven sections. Many parts of this document, especially the later sections, are incomplete. Here is a brief description of each of the paper's sections:</p>
+
+      <ol>
+        <li>This section defines undergeodesics and gives some of their basic properties, while also giving motivating examples.</li>
+        <li>This section introduces the extremely important notion of a <b>maximal</b> undergeodesic. The size of the maximal undergeodesics in a space is a useful way to track how close to being geodesic the space is. The other important concept introduced in this section is that of undergeodesic <b>uniqueness</b>, which extends the familiar concept of geodesic uniqueness.</li>
+        <li>This section describes both when undergeodesics are "close" to being geodesics, and when a metric space is "close" to being a geodesic metric space. The nuances involved in defining this notion of "close" are central to much of the work in this paper. Some fundamental examples are also given here.</li>
+        <li>This section introduces the notion of the <b>geodesic saturation</b> of a metric space, and gives conditions under which this geodesic saturation of a space can be viewed as the <i>smallest</i> geodesic space containing it.</li>
+        <li>This section attempts to generalize various fundamental results in the study of <b>CAT(&kappa;) spaces</b> to an undergeodesic setting.</li>
+        <li>This section attempts, so far without success, to generalize the concept of the <b>visual boundary</b> of a space to an undergeodesic setting.</li>
+        <li>This section compiles ideas and questions that do not fit into any earlier sections and are not sufficiently developed to necessitate their own section.</li>
+      </ol>
+    </div>
+  `,
+      casual: `<div style="font-size: 1.05em; text-align: left; max-width: 680px; margin: 0 auto;">
+       <p><b><i>A Vision Into My Mind</i></b> is the name I've given to a slightly disorganized paper of mine. It's a collection of mathematical work inspired by the following question: "Can a space be flat even if you can't draw a straight line on it?"</p>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Geodesic" target="_blank">geodesic</a> is a concept that generalizes the notion of a straight, unbroken line. On a flat surface, geodesics are exactly the same as straight lines. On a very bumpy surface, though, you can see what a geodesic would look like by imagining a small car driving over the surface, without steering: the line it traces as it drives would (ideally) be a geodesic. That path, even if curvy, is the "straightest possible" for the terrain it's on.</p>
+
+<p>The behavior of geodesics on a surface can tell you a lot about that surface, especially in the realm of <a href="https://en.wikipedia.org/wiki/Metric_geometry" target="_blank">metric geometry</a>, where geodesic information <i>defines</i> whether a surface is considered <i>flat</i> or <i>curved</i> in a mathematical sense.</p>
+
+<p>In order to understand the point of my paper, imagine a very porous object: for example, a thin slice of <a href="https://en.wikipedia.org/wiki/Swiss_cheese_(North_America)" target="_blank">Swiss cheese</a>. As you can easily test at home with a sharpie and a suitable cheese, if you try to draw a straight and unbroken line on such a slice, you'll quickly find yourself blocked by an inconvenient hole. And if your cheese is extremely (say, <a href="https://en.wikipedia.org/wiki/Totally_disconnected_space" target="_blank">infinitely</a>) hole-ridden, you may find that you simply can't get anywhere at all. There are no geodesics, and there is no geodesic information to extract.</p>
+
+<p>Does this mean that your slice of cheese is neither flat nor curved? To a metric geometer, perhaps the answer is <a href="https://en.wikipedia.org/wiki/CAT%28k%29_space" target="_blank">yes</a>, at least by the usual definitions. But I say <i>no</i>: a thin slice of Swiss cheese is <i>flat</i>, no matter how many holes it has. The original goal of this paper was to define a language to formalize that conclusion, although I've explored many fun tangents along the way.</p>`
     },
     soul: {
-      mathy: "A work-in-progress attempt to generalize variational principles in a non-Euclidean context using undergeodesics and related flow dynamics.",
-      casual: "Still figuring this one out, but it's about following the 'soul' of curves in weird spaces. Like watching how shapes move when the rules of space are different."
+      mathy: `<div style="font-size: 1.05em; text-align: left; max-width: 680px; margin: 0 auto;">
+<p><b><i>A Glimpse Into My Soul</b></i> is the long-awaited sequel and companion piece to <em>A Vision Into My Mind</em>, whose main purpose is to refine and develop the ideas of the fourth section of that paper.</p>
+
+<p>After rehashing some preliminaries and lemmas from <em>A Vision</em>, this paper focuses on making clear the relationship between an almost geodesic space and its geodesic saturation, eventually establishing the category of full metric spaces as a reflective subcategory of the category of almost full metric spaces via the saturation construction. There are a couple of technical lemmas involved in this section that I am, as of yet, unable to prove, although I am reasonably sure that they are correct.</p>
+
+<p>Two of the later sections (6 and 8) attempt to clarify notions from <em>A Vision</em> in the more restrictive setting of almost full spaces. Section 7 proposes a slightly odd definition of <em>homotopy</em> in almost full spaces, which attempts to detect "large" holes in infinitely hole-filled objects: I am yet to see if this results in anything interesting.</p>
+
+<p>The anticipated release date for this paper is about a month after I get the motivation to start working on it again.</p>`,
+      casual: `<div style="font-size: 1.05em; text-align: left; max-width: 680px; margin: 0 auto;">
+
+      <p><b><i>A Glimpse Into My Soul</b></i> is the long-awaited sequel and companion piece to <em>A Vision Into My Mind</em>, whose main purpose is to refine and develop the ideas of the fourth section of that paper.</p>
+
+<p>While much of the work here is technical, one idea that might be of interest is my proposed <a href="https://en.wikipedia.org/wiki/Homotopy_theory" target="_blank">homotopy theory</a> for extremely hole-ridden spaces. Homotopy is, crudely, a way of detecting holes in spaces: it could be used to calculate, for example, whether a straw has one or two holes, or whether your slice of swiss cheese has 35 or 36.</p>
+
+<p>Things become more complicated in the case of those weird spaces with infinitely many holes. In these cases, naive ideas of homotopy often either <a href="https://en.wikipedia.org/wiki/Fundamental_groupoid" target="_blank">fail completely</a> or look <a href="https://mathoverflow.net/questions/67549/fundamental-group-of-r2-q2" target="_blank">extremely horrible</a>. I propose an altered definition of homotopy, used only for these "extremely holey" spaces, which could perhaps detect whether their infinitely tiny holes are large or small. It's all pretty speculative.</p>
+
+<p>The anticipated release date for this paper is about a month after I get the motivation to start working on it again.</p>`
     },
     house: {
       mathy: '<img src="/posh-house.jpg" alt="A very posh building" style="width:100%; border:1px solid #888;">',
@@ -125,41 +166,43 @@ function showTab(section, tab) {
   let currentDoc = null;
 
   function openPopup(doc) {
-    const button = getButton(doc);
-    const otherButton = getButton(currentDoc);
+  const button = getButton(doc);
+  const otherButton = getButton(currentDoc);
+  const tabs = document.querySelector('.tabs');
 
-    if (popup.classList.contains("open") && currentDoc === doc) {
-      // Close if already open for same doc
-      popup.classList.remove("open");
-      currentDoc = null;
-      button.textContent = "Explanation";
-    } else {
-      if (currentDoc && currentDoc !== doc) {
-        // Close animation for current, then open new
-        popup.classList.remove("open");
-        if (otherButton) otherButton.textContent = "Explanation";
-        popup.classList.add("transitioning");
-        setTimeout(() => {
-          updateContent(doc);
-          popup.classList.add("open");
-          popup.classList.remove("transitioning");
-        }, 400);
-      } else {
-        updateContent(doc);
-        const tabs = document.querySelector('.tabs');
-if (doc === 'house') {
-  tabs.style.display = 'none';
-} else {
-  tabs.style.display = 'flex';
-}
-
-popup.classList.add("open");
-
-      }
-      button.textContent = "Close";
-      currentDoc = doc;
-    }
+  // Same doc, close it
+  if (popup.classList.contains("open") && currentDoc === doc) {
+    popup.classList.remove("open");
+    currentDoc = null;
+    if (button) button.textContent = "Explanation";
+    return;
   }
+
+  // Switching docs — transition effect
+  if (currentDoc && currentDoc !== doc) {
+    popup.classList.remove("open");
+    if (otherButton) otherButton.textContent = "Explanation";
+    popup.classList.add("transitioning");
+    setTimeout(() => {
+      updateContent(doc);
+      popup.classList.add("open");
+      popup.classList.remove("transitioning");
+    }, 200);
+  } else {
+    updateContent(doc);
+    popup.classList.add("open");
+  }
+
+  // Toggle tab visibility
+  if (doc === 'house') {
+    tabs.style.display = 'none';
+  } else {
+    tabs.style.display = 'flex';
+    if (button) button.textContent = "Close";
+  }
+
+  currentDoc = doc;
+}
 
   function updateContent(doc) {
     mathy.innerHTML = `<p>${explanations[doc].mathy}</p>`;
@@ -186,11 +229,19 @@ popup.classList.add("open");
   }
 
   function showExplanation(type) {
-    mathy.classList.remove("active");
-    casual.classList.remove("active");
-    document.getElementById(type).classList.add("active");
-  }
+  mathy.classList.remove("active");
+  casual.classList.remove("active");
+  document.getElementById(type).classList.add("active");
 
+  const tabButtons = document.querySelectorAll(".tabs button");
+  tabButtons.forEach(btn => btn.classList.remove("active-tab"));
+
+  if (type === "mathy") {
+    tabButtons[0].classList.add("active-tab");
+  } else {
+    tabButtons[1].classList.add("active-tab");
+  }
+}
   function getButton(doc) {
     return document.querySelector(`button[onclick="openPopup('${doc}')"]`);
   }
