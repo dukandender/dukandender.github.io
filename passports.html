@@ -180,43 +180,56 @@
     }
 
     function recompute() {
-      const notesEl = document.getElementById("notes-content");
-      const summaryEl = document.getElementById("summary");
-      const destEl = document.getElementById("destinations");
-      const selectedEl = document.getElementById("selected");
+  const notesEl = document.getElementById("notes-content");
+  const summaryEl = document.getElementById("summary");
+  const destEl = document.getElementById("destinations");
+  const selectedEl = document.getElementById("selected");
 
-      if (selected.size === 0) {
-        notesEl.innerHTML = "<span class='muted'>No passports selected.</span>";
-        summaryEl.innerHTML = "<b>0</b> destinations.";
-        selectedEl.innerHTML = "";
-        destEl.innerHTML = "<li class='muted'>Destinations will appear here.</li>";
-        return;
+  if (selected.size === 0) {
+    notesEl.innerHTML = "<span class='muted'>No passports selected.</span>";
+    summaryEl.innerHTML = "<b>0</b> destinations.";
+    selectedEl.innerHTML = "";
+    destEl.innerHTML = "<li class='muted'>Destinations will appear here.</li>";
+    return;
+  }
+
+  notesEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
+
+  // helper: Henley visa-free bucket = number-of-days OR "visa on arrival" OR "eta"
+  const isVisaFree = (val) => {
+    if (val == null) return false;
+    const s = String(val).trim().toLowerCase();
+    if (s === "-1" || s === "" || s === "e-visa" || s === "visa required") return false;
+    if (/^\d+$/.test(s)) return true;            // numeric = true visa-free for X days
+    if (s === "visa on arrival" || s === "eta") return true;
+    return false;
+    // (anything else is not counted)
+  };
+
+  // For the selected passports, mark a destination if ANY selected passport has a visa-free value
+  const vf = new Map(); // dest -> Set of (visa-free) values seen
+  selected.forEach(code => {
+    const p = PASSPORTS.get(code);
+    for (const dest in p.rules) {
+      if (selected.has(dest)) continue;        // don't list own selected passports as destinations
+      const rule = p.rules[dest];
+      if (isVisaFree(rule)) {
+        if (!vf.has(dest)) vf.set(dest, new Set());
+        vf.get(dest).add(rule);
       }
-
-      notesEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
-
-      const union = new Map();
-      selected.forEach(code => {
-        const p = PASSPORTS.get(code);
-        for (const dest in p.rules) {
-          const rule = p.rules[dest];
-          if (rule && rule !== "-1") {
-            if (!union.has(dest)) union.set(dest, new Set());
-            union.get(dest).add(rule);
-          }
-        }
-      });
-
-      const arr = Array.from(union.entries()).filter(([d]) => !selected.has(d));
-      arr.sort((a,b) => a[0].localeCompare(b[0]));
-
-      summaryEl.innerHTML = `<b>${arr.length}</b> destinations.`;
-      selectedEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
-
-      destEl.innerHTML = arr.map(([dest, rules]) =>
-        `<li><b>${dest}</b>: ${Array.from(rules).join(", ")}</li>`).join("");
     }
+  });
 
+  // Prepare sorted list of visa-free destinations only
+  const arr = Array.from(vf.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+  summaryEl.innerHTML = `<b>${arr.length}</b> destinations.`;
+  selectedEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
+
+  destEl.innerHTML = arr.length
+    ? arr.map(([dest, rules]) => `<li><b>${dest}</b>: ${Array.from(rules).join(", ")}</li>`).join("")
+    : `<li class='muted'>No visa-free destinations for the current selection.</li>`;
+}
     /* ===== Draggable dividers ===== */
     function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
     const grid = document.getElementById('grid');
