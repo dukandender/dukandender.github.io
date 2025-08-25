@@ -210,8 +210,7 @@
   const vf = new Map(); // dest -> Set of (visa-free) values seen
   selected.forEach(code => {
     const p = PASSPORTS.get(code);
-    for (const dest in p.rules) {
-      if (selected.has(dest)) continue;        // don't list own selected passports as destinations
+    for (const dest in p.rules) {       
       const rule = p.rules[dest];
       if (isVisaFree(rule)) {
         if (!vf.has(dest)) vf.set(dest, new Set());
