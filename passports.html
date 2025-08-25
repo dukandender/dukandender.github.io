@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Passport Power Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f5f5; color:#333; margin:0; padding:0; }
+    header { background:#e0e0e0; border-bottom:1px solid #aaa; padding:12px 20px; text-align:center; }
+    header h1 { margin:0; font-size:1.4em; font-weight:normal; }
+
+    .container {
+      display:grid;
+      grid-template-columns: 360px 5px 1fr; /* LEFT | V DIV | RIGHT  */
+      grid-template-rows: 220px 5px 1fr;    /* NOTES | H DIV | RESULTS */
+      height: calc(100vh - 50px);
+    }
+
+    .countries {
+      grid-column:1; grid-row:1 / span 3;
+      border-right:1px solid #aaa; padding:10px; overflow-y:auto; background:#eee;
+      display:flex; flex-direction:column;
+    }
+    .notes {
+      grid-column:3; grid-row:1;
+      padding:10px; background:#fafafa; border-bottom:1px solid #ddd; box-shadow: inset 0 1px 0 #fff;
+    }
+
+    .results {
+      grid-column:3; grid-row:3;
+      padding:10px; overflow-y:auto; background:#fff; border-top:1px solid #eee;
+    }
+
+    h2 { font-size:1.1em; margin-top:0; border-bottom:1px solid #ccc; padding-bottom:5px; }
+
+    .search-box { margin-bottom:10px; }
+    .search-box input {
+      width:100%; padding:8px; border:1px solid #aaa; border-radius:4px; font-size:0.9em;
+      background:#fafafa; box-sizing:border-box;
+    }
+
+    .country-list { list-style:none; padding:0; margin:0; flex-grow:1; }
+    .country-list li { margin-bottom:8px; }
+    .country-button {
+      display:block; width:100%; background:#ddd; border:1px solid #aaa; border-radius:6px;
+      padding:8px; text-align:left; cursor:pointer; font-size:0.95em; transition:background .2s, transform .1s;
+      box-sizing:border-box;
+    }
+    .country-button:hover { background:#ccc; }
+    .country-button:active { transform:scale(0.98); }
+    .disabled { color:#999; pointer-events:none; opacity:.6; }
+
+    .drag-bar { background:#ccc; user-select:none; transition:background .15s; }
+    .drag-bar:hover { background:#bdbdbd; }
+    #drag-bar-x { grid-column:2; grid-row:1 / span 3; cursor:col-resize; width:5px; }
+    #drag-bar-y { grid-column:3; grid-row:2; cursor:row-resize; height:5px;
+      background-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.07) 50%, transparent 100%);
+    }
+
+    .pill { display:inline-block; padding:2px 6px; border:1px solid #bbb; border-radius:12px; background:#eee; margin:2px 4px 0 0; font-size:.85em; }
+    .muted { color:#555; }
+    .list-grid { columns: 2 280px; column-gap: 20px; }
+    .list-grid li { break-inside: avoid; }
+
+    * { scrollbar-width:thin; scrollbar-color:#bbb #eee; }
+    *::-webkit-scrollbar { width:10px; height:10px; }
+    *::-webkit-scrollbar-thumb { background:#bbb; border:2px solid #eee; border-radius:8px; }
+    *::-webkit-scrollbar-track { background:#eee; }
+  </style>
+  <!-- PapaParse for CSV parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Passport Power Calculator</h1>
+  </header>
+
+  <div class="container" id="grid">
+    <!-- LEFT: Countries -->
+    <div class="countries">
+      <h2>Countries</h2>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Search countries..." aria-label="Search countries">
+      </div>
+      <ul class="country-list" id="country-list"><!-- rendered dynamically --></ul>
+    </div>
+
+    <!-- Vertical drag -->
+    <div class="drag-bar" id="drag-bar-x" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize columns"></div>
+
+    <!-- Top Right: Notes -->
+    <div class="notes">
+      <h2>Notes</h2>
+      <div id="notes-content" class="muted">
+        Select one or more passports on the left to see rules and travel privileges.
+      </div>
+    </div>
+
+    <!-- Horizontal drag -->
+    <div class="drag-bar" id="drag-bar-y" role="separator" aria-orientation="horizontal" tabindex="0" title="Drag to resize rows"></div>
+
+    <!-- Bottom Right: Results -->
+    <div class="results">
+      <h2>Visa Rules</h2>
+      <div id="summary"><b>0</b> destinations.</div>
+      <div id="selected" class="muted" style="margin:6px 0 10px 0;"></div>
+      <ul id="destinations" class="list-grid"><!-- destinations --></ul>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    let PASSPORTS = new Map();
+    let ORDER = [];
+    let selected = new Set();
+
+    function loadCSV() {
+      Papa.parse("passport-index-matrix-iso2.csv", {
+        download: true,
+        header: true,
+        dynamicTyping: false,
+        complete: function(results) {
+          buildData(results.data);
+          renderCountryList();
+          recompute();
+        }
+      });
+    }
+
+    function buildData(rows) {
+      rows.forEach(row => {
+        const code = row["Passport"];
+        if (!code) return;
+        const rules = {};
+        for (const dest in row) {
+          if (dest === "Passport") continue;
+          rules[dest] = row[dest];
+        }
+        PASSPORTS.set(code, { code, name: code, rules });
+        ORDER.push(code);
+      });
+    }
+
+    function renderCountryList() {
+      const listEl = document.getElementById("country-list");
+      listEl.innerHTML = "";
+      ORDER.forEach(code => {
+        const li = document.createElement("li");
+        li.setAttribute("data-name", code.toLowerCase());
+        li.setAttribute("data-code", code);
+
+        const label = document.createElement("label");
+        label.className = "country-button";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = code;
+        input.addEventListener("change", onToggle);
+
+        label.appendChild(input);
+        label.append(" " + code);
+
+        li.appendChild(label);
+        listEl.appendChild(li);
+      });
+
+      document.getElementById("search").addEventListener("input", e => {
+        const term = e.target.value.toLowerCase();
+        Array.from(listEl.querySelectorAll("li")).forEach(li => {
+          li.style.display = li.textContent.toLowerCase().includes(term) ? "" : "none";
+        });
+      });
+    }
+
+    function onToggle(e) {
+      const code = e.target.value;
+      if (e.target.checked) selected.add(code);
+      else selected.delete(code);
+      recompute();
+    }
+
+    function recompute() {
+      const notesEl = document.getElementById("notes-content");
+      const summaryEl = document.getElementById("summary");
+      const destEl = document.getElementById("destinations");
+      const selectedEl = document.getElementById("selected");
+
+      if (selected.size === 0) {
+        notesEl.innerHTML = "<span class='muted'>No passports selected.</span>";
+        summaryEl.innerHTML = "<b>0</b> destinations.";
+        selectedEl.innerHTML = "";
+        destEl.innerHTML = "<li class='muted'>Destinations will appear here.</li>";
+        return;
+      }
+
+      notesEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
+
+      const union = new Map();
+      selected.forEach(code => {
+        const p = PASSPORTS.get(code);
+        for (const dest in p.rules) {
+          const rule = p.rules[dest];
+          if (rule && rule !== "-1") {
+            if (!union.has(dest)) union.set(dest, new Set());
+            union.get(dest).add(rule);
+          }
+        }
+      });
+
+      const arr = Array.from(union.entries()).filter(([d]) => !selected.has(d));
+      arr.sort((a,b) => a[0].localeCompare(b[0]));
+
+      summaryEl.innerHTML = `<b>${arr.length}</b> destinations.`;
+      selectedEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
+
+      destEl.innerHTML = arr.map(([dest, rules]) =>
+        `<li><b>${dest}</b>: ${Array.from(rules).join(", ")}</li>`).join("");
+    }
+
+    /* ===== Draggable dividers ===== */
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+    const grid = document.getElementById('grid');
+
+    const dragX = document.getElementById('drag-bar-x');
+    dragX.addEventListener('mousedown', e => {
+      e.preventDefault();
+      function onMove(ev){
+        const rect = grid.getBoundingClientRect();
+        const x = ev.clientX - rect.left;
+        const min = 220, max = Math.min(720, rect.width - 320);
+        grid.style.gridTemplateColumns = clamp(x, min, max) + 'px 5px 1fr';
+      }
+      function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+
+    const dragY = document.getElementById('drag-bar-y');
+    dragY.addEventListener('mousedown', e => {
+      e.preventDefault();
+      function onMove(ev){
+        const rect = grid.getBoundingClientRect();
+        const y = ev.clientY - rect.top;
+        const minTop = 120, minBottom = 160, total = rect.height;
+        grid.style.gridTemplateRows = clamp(y, minTop, total - minBottom) + 'px 5px 1fr';
+      }
+      function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+
+    // Start
+    loadCSV();
+  })();
+  </script>
+</body>
+</html>
