@@ -180,8 +180,16 @@ function addCountry({
 
     /* ===== Sample entries (replace with your real lists) ===== */
     addCountry({
-  code: 'AF', name: 'Afghanistan', alpha2: 'AF',
-  visaFree: ['CA','MX','GB','FR','DE','JP','KR','SG']
+  code: 'AF',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Afghanistan',   // Display name
+  alpha2: 'US',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree: [              // List of destination codes this passport allows visa-free access to
+   'AF','BD','BI','KH','CV','KM','CK','DJ','DM','GW','HT','KE','MO','MG','MV','FM','MZ','NU','PW','RW','WS','SC','SO','LK','TL','TV'
+  ],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
 });
     finalizeCountries();
 
