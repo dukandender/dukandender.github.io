@@ -26,6 +26,19 @@
       padding:10px; background:#fafafa; border-bottom:1px solid #ddd; box-shadow: inset 0 1px 0 #fff;
     }
 
+    /* ADD: small circular flag/avatar beside country name */
+.flag {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: -3px;
+  object-fit: cover;
+  border: 1px solid #aaa;
+  background: #fff;
+}
+.country-button input { margin-right: 6px; } /* keep as-is, works with the flag */
+
     .results {
       grid-column:3; grid-row:3;
       padding:10px; overflow-y:auto; background:#fff; border-top:1px solid #eee;
@@ -48,6 +61,7 @@
     }
     .country-button:hover { background:#ccc; }
     .country-button:active { transform:scale(0.98); }
+    .country-button input { margin-right:6px; }
     .disabled { color:#999; pointer-events:none; opacity:.6; }
 
     .drag-bar { background:#ccc; user-select:none; transition:background .15s; }
@@ -67,8 +81,6 @@
     *::-webkit-scrollbar-thumb { background:#bbb; border:2px solid #eee; border-radius:8px; }
     *::-webkit-scrollbar-track { background:#eee; }
   </style>
-  <!-- PapaParse for CSV parsing -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
   <header>
@@ -101,8 +113,8 @@
 
     <!-- Bottom Right: Results -->
     <div class="results">
-      <h2>Visa Rules</h2>
-      <div id="summary"><b>0</b> destinations.</div>
+      <h2>Visa-Free Access</h2>
+      <div id="summary"><b>0</b> countries available.</div>
       <div id="selected" class="muted" style="margin:6px 0 10px 0;"></div>
       <ul id="destinations" class="list-grid"><!-- destinations --></ul>
     </div>
@@ -110,159 +122,276 @@
 
   <script>
   (function() {
-    let PASSPORTS = new Map();
-    let ORDER = [];
-    let selected = new Set();
+    /* ===================== DATA LAYER ===================== */
+    const PASSPORTS = new Map(); // code -> object
+    const ORDER = [];            // preserve insertion order
 
-    function loadCSV() {
-      Papa.parse("passport-index-matrix-iso2.csv", {
-        download: true,
-        header: true,
-        dynamicTyping: false,
-        complete: function(results) {
-          buildData(results.data);
-          renderCountryList();
-          recompute();
+    /* ADD (above addCountry): code → display name registry for destinations not in PASSPORTS */
+const CODE_TO_NAME = {}; // e.g. CODE_TO_NAME['GB'] = 'United Kingdom'
+function registerName(code, name) {
+  if (!code) return;
+  CODE_TO_NAME[code.toUpperCase()] = name || code.toUpperCase();
+}
+
+/* REPLACE: addCountry now accepts visaFree as codes, plus optional alpha2/flag */
+function addCountry({
+  code,            // primary code for this passport (e.g., 'USA' or 'GB')
+  name,            // display name ('United States')
+  alpha2 = null,   // optional alpha-2 for flag files (e.g., 'US', 'GB')
+  flag = null,     // optional explicit flag URL; if omitted and alpha2 exists: /flags/{alpha2}.png
+  visaFree = [],   // ARRAY OF CODES NOW (e.g., ['CA','MX','GB','FR'])
+  incompatibleWith = [], // ARRAY OF CODES (passport codes)
+  maxCitizenships = Infinity,
+  notes = ''
+}) {
+  const c = (code || '').trim().toUpperCase();
+  if (!c || !name) return;
+
+  const a2 = alpha2 ? alpha2.trim().toUpperCase() : null;
+  const flagUrl = flag || (a2 ? `/flags/${a2.toLowerCase()}.png` : null);
+
+  PASSPORTS.set(c, {
+    code: c,
+    name,
+    alpha2: a2,
+    flag: flagUrl,
+    // store visa-free as uppercased codes for speed/consistency
+    visaFree: new Set((visaFree || []).map(x => (x || '').toUpperCase())),
+    incompatibleWith: new Set((incompatibleWith || []).map(x => (x || '').toUpperCase())),
+    maxCitizenships: (Number.isFinite(maxCitizenships) ? maxCitizenships : Infinity),
+    notes
+  });
+  ORDER.push(c);
+
+  // Register this passport's own display name under BOTH its main code and alpha2 (if provided)
+  registerName(c, name);
+  if (a2) registerName(a2, name);
+}
+
+    // Symmetrize incompatibilities only (no DOM access here)
+    function finalizeCountries() {
+      for (const [code, obj] of PASSPORTS) {
+        for (const other of obj.incompatibleWith) {
+          const o = PASSPORTS.get(other);
+          if (o) o.incompatibleWith.add(code);
         }
-      });
+      }
     }
 
-    function buildData(rows) {
-      rows.forEach(row => {
-        const code = row["Passport"];
-        if (!code) return;
-        const rules = {};
-        for (const dest in row) {
-          if (dest === "Passport") continue;
-          rules[dest] = row[dest];
-        }
-        PASSPORTS.set(code, { code, name: code, rules });
-        ORDER.push(code);
-      });
+    /* ===== Sample entries (replace with your real lists) ===== */
+    addCountry({
+  code: 'AF', name: 'Afghanistan', alpha2: 'AF',
+  visaFree: ['CA','MX','GB','FR','DE','JP','KR','SG']
+});
+    finalizeCountries();
+
+    /* ===================== DOM & LOGIC ===================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('grid');
+      const listEl = document.getElementById('country-list');
+      const searchEl = document.getElementById('search');
+
+      const notesEl = document.getElementById('notes-content');
+      const summaryEl = document.getElementById('summary');
+      const selectedEl = document.getElementById('selected');
+      const destEl = document.getElementById('destinations');
+
+      const selected = new Set();
+
+      function renderCountryList() {
+  listEl.innerHTML = '';
+  for (const code of ORDER) {
+    const p = PASSPORTS.get(code);
+    const li = document.createElement('li');
+    li.setAttribute('data-name', p.name.toLowerCase());
+    li.setAttribute('data-code', p.code);
+
+    const label = document.createElement('label');
+    label.className = 'country-button';
+    label.tabIndex = 0;
+
+    // ADD: small circular image (flag or generic)
+    if (p.flag) {
+      const img = document.createElement('img');
+      img.className = 'flag';
+      img.src = p.flag;
+      img.alt = `${p.name} flag`;
+      label.appendChild(img);
     }
 
-    function renderCountryList() {
-      const listEl = document.getElementById("country-list");
-      listEl.innerHTML = "";
-      ORDER.forEach(code => {
-        const li = document.createElement("li");
-        li.setAttribute("data-name", code.toLowerCase());
-        li.setAttribute("data-code", code);
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.value = p.code;
+    input.addEventListener('change', onToggle);
 
-        const label = document.createElement("label");
-        label.className = "country-button";
+    label.appendChild(input);
+    label.append(p.name);
 
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.value = code;
-        input.addEventListener("change", onToggle);
-
-        label.appendChild(input);
-        label.append(" " + code);
-
-        li.appendChild(label);
-        listEl.appendChild(li);
-      });
-
-      document.getElementById("search").addEventListener("input", e => {
-        const term = e.target.value.toLowerCase();
-        Array.from(listEl.querySelectorAll("li")).forEach(li => {
-          li.style.display = li.textContent.toLowerCase().includes(term) ? "" : "none";
-        });
-      });
-    }
-
-    function onToggle(e) {
-      const code = e.target.value;
-      if (e.target.checked) selected.add(code);
-      else selected.delete(code);
-      recompute();
-    }
-
-    function recompute() {
-  const notesEl = document.getElementById("notes-content");
-  const summaryEl = document.getElementById("summary");
-  const destEl = document.getElementById("destinations");
-  const selectedEl = document.getElementById("selected");
-
-  if (selected.size === 0) {
-    notesEl.innerHTML = "<span class='muted'>No passports selected.</span>";
-    summaryEl.innerHTML = "<b>0</b> destinations.";
-    selectedEl.innerHTML = "";
-    destEl.innerHTML = "<li class='muted'>Destinations will appear here.</li>";
-    return;
+    li.appendChild(label);
+    listEl.appendChild(li);
   }
+}
 
-  notesEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
+      function onToggle(e) {
+        const code = e.target.value;
+        if (e.target.checked) selected.add(code);
+        else selected.delete(code);
+        recompute();
+      }
 
-  // helper: Henley visa-free bucket = number-of-days OR "visa on arrival" OR "eta"
-  const isVisaFree = (val) => {
-    if (val == null) return false;
-    const s = String(val).trim().toLowerCase();
-    if (s === "-1" || s === "" || s === "e-visa" || s === "visa required") return false;
-    if (/^\d+$/.test(s)) return true;            // numeric = true visa-free for X days
-    if (s === "visa on arrival" || s === "eta") return true;
-    return false;
-    // (anything else is not counted)
-  };
+      function currentMaxAllowedCount(withCandidate = null) {
+        let minCap = Infinity;
+        for (const c of selected) minCap = Math.min(minCap, PASSPORTS.get(c).maxCitizenships);
+        if (withCandidate) minCap = Math.min(minCap, PASSPORTS.get(withCandidate).maxCitizenships);
+        return minCap;
+      }
 
-  // For the selected passports, mark a destination if ANY selected passport has a visa-free value
-  const vf = new Map(); // dest -> Set of (visa-free) values seen
+      function isCompatibleToAdd(code) {
+        const cand = PASSPORTS.get(code);
+        if (!cand) return false;
+
+        const minCap = currentMaxAllowedCount(code);
+        if ((selected.size + 1) > minCap) return false;
+
+        for (const s of selected) {
+          const sel = PASSPORTS.get(s);
+          if (sel.incompatibleWith.has(cand.code) || cand.incompatibleWith.has(sel.code)) return false;
+        }
+        return true;
+      }
+
+      function explainDisabledReasons() {
+        const lines = [];
+        const cap = currentMaxAllowedCount();
+        if (cap !== Infinity) {
+          const capping = Array.from(selected).filter(c => PASSPORTS.get(c).maxCitizenships === cap)
+                               .map(c => PASSPORTS.get(c).name);
+          lines.push(cap === 1
+            ? `Citizenship cap: ${capping.join(', ')} allows only one citizenship (no dual).`
+            : `Citizenship cap: ${capping.join(', ')} limits total citizenships to ${cap}.`);
+        }
+        for (const s of selected) {
+          const sel = PASSPORTS.get(s);
+          if (sel.incompatibleWith.size) {
+            const names = Array.from(sel.incompatibleWith).filter(c => PASSPORTS.has(c)).map(c => PASSPORTS.get(c).name);
+            if (names.length) lines.push(`${sel.name} is incompatible with: ${names.join(', ')}.`);
+          }
+          if (sel.notes) lines.push(`${sel.name}: ${sel.notes}`);
+        }
+        notesEl.innerHTML = lines.length
+          ? `<ul>${lines.map(l => `<li>${l}</li>`).join('')}</ul>`
+          : `<span class="muted">No active restrictions. Select passports to see notes.</span>`;
+      }
+
+      function updateCheckboxStates() {
+        const items = listEl.querySelectorAll('li');
+        const minCap = currentMaxAllowedCount();
+
+        items.forEach(li => {
+          const code = li.getAttribute('data-code');
+          const label = li.querySelector('label');
+          const input = li.querySelector('input');
+          const alreadySelected = selected.has(code);
+
+          let disable = false;
+          if (!alreadySelected) {
+            if (selected.size > 0) {
+              if (selected.size >= minCap) disable = true;
+              else if (!isCompatibleToAdd(code)) disable = true;
+            }
+            if (!disable) {
+              for (const s of selected) {
+                const sel = PASSPORTS.get(s);
+                if (sel.incompatibleWith.has(code) || PASSPORTS.get(code).incompatibleWith.has(s)) { disable = true; break; }
+              }
+            }
+          }
+          input.disabled = disable;
+          label.classList.toggle('disabled', disable && !alreadySelected);
+        });
+      }
+
+      /* REPLACE: union of destination CODES (strings) */
+function computeDestinationsUnion() {
+  const union = new Set();
   selected.forEach(code => {
     const p = PASSPORTS.get(code);
-    for (const dest in p.rules) {
-      const rule = p.rules[dest];
-      if (isVisaFree(rule)) {
-        if (!vf.has(dest)) vf.set(dest, new Set());
-        vf.get(dest).add(rule);
-      }
-    }
+    if (p) p.visaFree.forEach(destCode => union.add(destCode));
   });
-
-  // Prepare sorted list of visa-free destinations only
-  const arr = Array.from(vf.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-
-  summaryEl.innerHTML = `<b>${arr.length}</b> destinations.`;
-  selectedEl.innerHTML = "Selected: " + Array.from(selected).map(c => `<span class="pill">${c}</span>`).join(" ");
-
-  destEl.innerHTML = arr.length
-    ? arr.map(([dest, rules]) => `<li><b>${dest}</b>: ${Array.from(rules).join(", ")}</li>`).join("")
-    : `<li class='muted'>No visa-free destinations for the current selection.</li>`;
+  return Array.from(union).sort((a,b)=>a.localeCompare(b));
 }
-    /* ===== Draggable dividers ===== */
-    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
-    const grid = document.getElementById('grid');
 
-    const dragX = document.getElementById('drag-bar-x');
-    dragX.addEventListener('mousedown', e => {
-      e.preventDefault();
-      function onMove(ev){
-        const rect = grid.getBoundingClientRect();
-        const x = ev.clientX - rect.left;
-        const min = 220, max = Math.min(720, rect.width - 320);
-        grid.style.gridTemplateColumns = clamp(x, min, max) + 'px 5px 1fr';
+/* ADD: helper to display a destination code nicely */
+function nameFor(code) {
+  const up = (code || '').toUpperCase();
+  // Prefer known passports' names; fall back to registry; else show code
+  return PASSPORTS.get(up)?.name || CODE_TO_NAME[up] || up;
+}
+      function renderResults() {
+  const chosen = Array.from(selected).map(c => PASSPORTS.get(c).name).sort((a,b)=>a.localeCompare(b));
+  selectedEl.innerHTML = chosen.length
+    ? `Selected: ${chosen.map(n => `<span class="pill">${n}</span>`).join(' ')}`
+    : `<span class="muted">No passports selected.</span>`;
+
+  const unionCodes = computeDestinationsUnion();
+  summaryEl.innerHTML = `<b>${unionCodes.length}</b> countries available.`;
+
+  destEl.innerHTML = unionCodes.length
+    ? unionCodes.map(code => `<li>${nameFor(code)}</li>`).join('')
+    : `<li class="muted">Destinations will appear here.</li>`;
+}
+
+      function recompute() {
+        updateCheckboxStates();
+        explainDisabledReasons();
+        renderResults();
       }
-      function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    });
 
-    const dragY = document.getElementById('drag-bar-y');
-    dragY.addEventListener('mousedown', e => {
-      e.preventDefault();
-      function onMove(ev){
-        const rect = grid.getBoundingClientRect();
-        const y = ev.clientY - rect.top;
-        const minTop = 120, minBottom = 160, total = rect.height;
-        grid.style.gridTemplateRows = clamp(y, minTop, total - minBottom) + 'px 5px 1fr';
+      function applySearchFilter() {
+        const filter = (searchEl.value || '').toLowerCase().trim();
+        Array.from(listEl.querySelectorAll('li')).forEach(li => {
+          const text = li.getAttribute('data-name') || '';
+          li.style.display = text.includes(filter) ? '' : 'none';
+        });
       }
-      function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    });
 
-    // Start
-    loadCSV();
+      // Initial render & wire-up
+      renderCountryList();
+      applySearchFilter();
+      recompute();
+      searchEl.addEventListener('input', applySearchFilter);
+
+      /* ===== Draggable dividers ===== */
+      function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+      const dragX = document.getElementById('drag-bar-x');
+      dragX.addEventListener('mousedown', e => {
+        e.preventDefault();
+        function onMove(ev){
+          const rect = grid.getBoundingClientRect();
+          const x = ev.clientX - rect.left;
+          const min = 220, max = Math.min(720, rect.width - 320);
+          grid.style.gridTemplateColumns = clamp(x, min, max) + 'px 5px 1fr';
+        }
+        function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
+
+      const dragY = document.getElementById('drag-bar-y');
+      dragY.addEventListener('mousedown', e => {
+        e.preventDefault();
+        function onMove(ev){
+          const rect = grid.getBoundingClientRect();
+          const y = ev.clientY - rect.top;
+          const minTop = 120, minBottom = 160, total = rect.height;
+          grid.style.gridTemplateRows = clamp(y, minTop, total - minBottom) + 'px 5px 1fr';
+        }
+        function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
+    });
   })();
   </script>
 </body>
