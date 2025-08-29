@@ -268,6 +268,36 @@ addCountry({
   ],
   maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
 });
+addCountry({
+  code: 'FM',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Micronesia',   // Display name
+  alpha2: 'FM',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree: ['FM','AS','AD','AO','AI','AT','BD','BB','BY','BE','BZ','BM','BO','BA','VG','BG','BI','KH','CV','CO','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','FO','FJ','FI','FR','PF','DE','GI','GR','GL','GD','GU','GW','HT','HK','HU','IS','IR','IL','IT','JO','KE','KI','XK','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','MX','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','MP','NO','PW','PS','PA','PG','PE','PH','PL','PT','PR','RO','RW','WS','SM','SN','SC','SG','SK','SI','SB','SO','KR','ES','LK','SH','LC','VC','SR','SE','CH','TZ','GM','TL','TO','TV','GB','US','VI','VU','VA','ZM','ZW'],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'MA',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Morocco',   // Display name
+  alpha2: 'MA',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree: ['MA','FM','AS','AD','AO','AI','AT','BD','BB','BY','BE','BZ','BM','BO','BA','VG','BG','BI','KH','CV','CO','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','FO','FJ','FI','FR','PF','DE','GI','GR','GL','GD','GU','GW','HT','HK','HU','IS','IR','IL','IT','JO','KE','KI','XK','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','MX','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','MP','NO','PW','PS','PA','PG','PE','PH','PL','PT','PR','RO','RW','WS','SM','SN','SC','SG','SK','SI','SB','SO','KR','ES','LK','SH','LC','VC','SR','SE','CH','TZ','GM','TL','TO','TV','GB','US','VI','VU','VA','ZM','ZW'],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'JP',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Japan',   // Display name
+  alpha2: 'JP',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree: ['AL','AS','AD','AO','AI','AG','AR','AM','AW','AU','AT','AZ','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BN','BG','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','GY','HT','HN','HK','HU','IS','IN','ID','IR','IQ','IE','IL','IT','JM','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','ST','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','TL','TO','TT','TN','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','VN','ZM','ZW','JP'],  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+
     finalizeCountries();
 
     /* ===================== DOM & LOGIC ===================== */
@@ -284,37 +314,45 @@ addCountry({
       const selected = new Set();
 
       function renderCountryList() {
-  listEl.innerHTML = '';
-  for (const code of ORDER) {
-    const p = PASSPORTS.get(code);
-    const li = document.createElement('li');
-    li.setAttribute('data-name', p.name.toLowerCase());
-    li.setAttribute('data-code', p.code);
+  const listEl = document.getElementById("country-list");
+  listEl.innerHTML = "";
 
-    const label = document.createElement('label');
-    label.className = 'country-button';
+  // Sort by display name (change to .code if you want ISO2 order instead)
+  const sorted = [...ORDER].sort((a, b) => {
+    const nameA = PASSPORTS.get(a).name.toLowerCase();
+    const nameB = PASSPORTS.get(b).name.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+
+  sorted.forEach(code => {
+    const p = PASSPORTS.get(code);
+    const li = document.createElement("li");
+    li.setAttribute("data-name", p.name.toLowerCase());
+    li.setAttribute("data-code", p.code);
+
+    const label = document.createElement("label");
+    label.className = "country-button";
     label.tabIndex = 0;
 
-    // ADD: small circular image (flag or generic)
     if (p.flag) {
-      const img = document.createElement('img');
-      img.className = 'flag';
+      const img = document.createElement("img");
+      img.className = "flag";
       img.src = p.flag;
       img.alt = `${p.name} flag`;
       label.appendChild(img);
     }
 
-    const input = document.createElement('input');
-    input.type = 'checkbox';
+    const input = document.createElement("input");
+    input.type = "checkbox";
     input.value = p.code;
-    input.addEventListener('change', onToggle);
+    input.addEventListener("change", onToggle);
 
     label.appendChild(input);
     label.append(p.name);
 
     li.appendChild(label);
     listEl.appendChild(li);
-  }
+  });
 }
 
       function onToggle(e) {
