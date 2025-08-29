@@ -282,7 +282,7 @@ addCountry({
   code: 'MA',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
   name: 'Morocco',   // Display name
   alpha2: 'MA',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
-  visaFree: ['MA','FM','AS','AD','AO','AI','AT','BD','BB','BY','BE','BZ','BM','BO','BA','VG','BG','BI','KH','CV','CO','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','FO','FJ','FI','FR','PF','DE','GI','GR','GL','GD','GU','GW','HT','HK','HU','IS','IR','IL','IT','JO','KE','KI','XK','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','MX','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','MP','NO','PW','PS','PA','PG','PE','PH','PL','PT','PR','RO','RW','WS','SM','SN','SC','SG','SK','SI','SB','SO','KR','ES','LK','SH','LC','VC','SR','SE','CH','TZ','GM','TL','TO','TV','GB','US','VI','VU','VA','ZM','ZW'],
+  visaFree: ['MA','AO','AZ','BB','BZ','BJ','BO','BR','BI','KH','CV','CO','KM','CG','CK','CI','DJ','DM','DO','EC','ET','GA','GH','GD','GN','GW','HT','HK','ID','IR','JO','KZ','KE','KI','LA','LB','MO','MG','MY','MV','ML','MH','MU','FM','MZ','NP','NI','NE','NU','PW','PH','RW','WS','ST','SN','SC','SO','KR','LK','KN','VC','SR','SY','TJ','TZ','TH','GM','TL','TG','TN','TR','TV','VU','ZM'],
   incompatibleWith: [      // List of other passport codes this cannot be combined with
     
   ],
@@ -297,7 +297,16 @@ addCountry({
   ],
   maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
 });
-
+addCountry({
+  code: 'KP',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'North Korea',   // Display name
+  alpha2: 'KP',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree: ['KP','AM','BD','BI','KH','CV','KM','CK','DJ','DM','EG','ET','GW','GY','HT','IR','JO','KE','KG','LA','MO','MG','MW','MV','FM','MZ','MM','NP','NI','NU','PW','RW','WS','SC','SO','VC','SR','TZ','GM','TL','TV'],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
     finalizeCountries();
 
     /* ===================== DOM & LOGIC ===================== */
