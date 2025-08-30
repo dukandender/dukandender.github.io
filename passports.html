@@ -307,6 +307,16 @@ addCountry({
   ],
   maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
 });
+addCountry({
+  code: 'SR',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Suriname',   // Display name
+  alpha2: 'SR',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['SR','AO','AG','AR','AW','BS','BH','BB','BZ','BO','BQ','BR','BI','KH','CV','CN','CO','KM','CK','CR','CW','DJ','DM','DO','EC','EG','GD','GW','GY','HT','HK','ID','IR','IL','JM','JP','JO','KE','KI','MO','MG','MW','MY','MV','MU','FM','MS','MZ','NP','NI','NU','OM','PW','PS','PE','PH','QA','RU','RW','WS','SN','RS','SC','SG','SO','KR','LK','KN','LC','MF','VC','TZ','GM','TL','TT','TC','TV','ZM','ZW'],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
     finalizeCountries();
 
     /* ===================== DOM & LOGIC ===================== */
