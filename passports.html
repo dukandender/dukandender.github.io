@@ -140,7 +140,8 @@ function addCountry({
   alpha2 = null,   // optional alpha-2 for flag files (e.g., 'US', 'GB')
   flag = null,     // optional explicit flag URL; if omitted and alpha2 exists: /flags/{alpha2}.png
   visaFree = [],   // ARRAY OF CODES NOW (e.g., ['CA','MX','GB','FR'])
-  incompatibleWith = [], // ARRAY OF CODES (passport codes)
+  incompatibleWith = [],
+  allowedWith = [], // ARRAY OF CODES (passport codes)
   maxCitizenships = Infinity,
   notes = ''
 }) {
@@ -158,6 +159,7 @@ function addCountry({
     // store visa-free as uppercased codes for speed/consistency
     visaFree: new Set((visaFree || []).map(x => (x || '').toUpperCase())),
     incompatibleWith: new Set((incompatibleWith || []).map(x => (x || '').toUpperCase())),
+    allowedWith: new Set((allowedWith || []).map(x => (x || '').toUpperCase())),
     maxCitizenships: (Number.isFinite(maxCitizenships) ? maxCitizenships : Infinity),
     notes
   });
@@ -243,7 +245,7 @@ addCountry({
   name: 'Lebanon',   // Display name
   alpha2: 'LB',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
   visaFree: [ 'LB', 'AM','BB','BO','BI','KH','CV','KM','CK','DJ','DM','EC','ET','GE','GW','HT','IR','IQ','JO','KE','LA','MO','MG','MY','MV','MH','MU','FM','MZ','NP','NU','OM','PW','QA','RW','WS','SC','SO','LK','SR','SY','TJ','TL','TR','TV'   ],
-  incompatibleWith: [      // List of other passport codes this cannot be combined with
+  incompatibleWith: [ 'IL'     // List of other passport codes this cannot be combined with
     
   ],
   maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
@@ -316,6 +318,136 @@ addCountry({
     
   ],
   maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'BE',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Belgium',   // Display name
+  alpha2: 'BE',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['BE','AL','AS','AD','AO','AI','AG','AR','AM','AW','AU','AT','BS','BH','BD','BB','BY','BZ','BM','BO','BQ','BA','BW','BR','VG','BN','BG','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','GY','HT','HN','HK','HU','IS','ID','IR','IQ','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','ST','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','ZM','ZW'],
+  incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'SG',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Singapore',   // Display name
+  alpha2: 'SG',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['SG','AL','AS','AD','AO','AI','AG','AR','AM','AW','AU','AT','AZ','BS','BH','BD','BB','BY','BE','BZ','BJ','BM','BO','BQ','BA','BW','BR','VG','BN','BG','BF','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','CI','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FO','FJ','FI','FR','GF','PF','GP','GA','GE','DE','GH','GI','GR','GL','GD','GU','GT','GN','GW','GY','HT','HN','HK','HU','IS','ID','IR','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','SA','SN','RS','SC','SL','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UG','AE','GB','US','UY','VI','UZ','VU','VA','VN','ZM','ZW'],
+    incompatibleWith: [      // List of other passport codes this cannot be combined with
+    
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AD',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Andorra',   // Display name
+  alpha2: 'AD',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AD','AL','AS','AI','AG','AR','AM','AW','AU','AT','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BR','VG','BG','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','FK','FO','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GU','GT','GW','HT','HN','HK','HU','IS','ID','IR','IE','IL','IT','JM','JP','JO','KZ','KE','XK','KW','KG','LA','LV','LB','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','ME','MS','MA','MZ','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RU','RW','WS','SM','ST','SA','SN','RS','SC','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','GM','TL','TN','TR','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','ZM','ZW'],   
+   incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AO',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Angola',   // Display name
+  alpha2: 'AO',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AO','BD','BB','BJ','BW','BI','KH','CV','KM','CK','DJ','DM','ET','GH','GW','HT','IR','KE','LA','MO','MG','MV','MU','FM','MZ','NA','NP','NI','NU','PW','PH','RW','WS','ST','SN','SC','SG','SO','ZA','LK','VC','TZ','GM','TL','TN','TV','UG','ZM','ZW'],   
+   incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AG',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Antigua and Barbuda',   // Display name
+  alpha2: 'AG',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AG','AL','AD','AO','AI','AM','AW','AT','BS','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BG','BI','KH','CV','KY','CL','CN','CO','KM','CK','CR','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GT','GW','GY','HT','HN','HK','HU','IS','IR','IE','IT','JM','JO','KE','KI','XK','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MU','YT','FM','MD','MC','ME','MS','MZ','NP','NL','NC','NI','NU','MK','NO','PW','PA','PE','PH','PL','PT','QA','RE','RO','RU','RW','WS','SM','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TZ','GM','TL','TT','TN','TR','TC','TV','UG','UA','GB','UZ','VU','VA','VE','ZM','ZW'],
+     incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AR',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Argentina',   // Display name
+  alpha2: 'AR',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AR','AL','AD','AO','AI','AG','AM','AW','AT','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BG','BI','KH','CV','KY','CL','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GT','GW','GY','HT','HN','HK','HU','IS','ID','IR','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KG','LA','LV','LB','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','NA','NP','NL','NC','NZ','NI','NU','MK','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','QA','RE','RO','RU','RW','WS','SM','SN','RS','SC','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TJ','TZ','TH','TL','TT','TN','TR','TC','TV','UA','AE','GB','UY','UZ','VU','VA','VE','ZM','ZW'],
+       incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AM',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Armenia',   // Display name
+  alpha2: 'AM',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AM','AL','AG','AR','BS','BD','BB','BY','BO','BR','BI','KH','CV','CN','KM','CK','DJ','DM','EC','GE','GW','HT','HK','ID','IR','JM','JO','KZ','KE','KG','LA','LB','MO','MG','MW','MY','MV','MU','FM','MD','MZ','NA','NP','NU','PW','PA','RU','RW','WS','SN','RS','SC','SO','LK','VC','SR','TJ','TZ','TH','GM','TL','TR','TV','UA','AE','UY','UZ','ZW'],
+         incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AU',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Australia',   // Display name
+  alpha2: 'AU',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AU','AL','AS','AD','AO','AI','AG','AR','AM','AW','AT','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','VG','BN','BG','BI','KH','CA','CV','KY','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','GY','HT','HN','HK','HU','IS','ID','IR','IQ','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','ZM','ZW'],
+         incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AT',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Austria',   // Display name
+  alpha2: 'AT',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AT','AL','AS','AD','AO','AI','AG','AR','AM','AW','AU','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BN','BG','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','GY','HT','HN','HK','HU','IS','ID','IR','IQ','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','ST','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','ZM','ZW'],
+         incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'AZ',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Azerbaijan',   // Display name
+  alpha2: 'AZ',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AZ','AL','AG','BS','BD','BB','BY','BO','BA','BI','KH','CV','CN','CO','KM','CK','DJ','DM','EC','GE','GD','GW','HT','ID','IR','JM','JO','KZ','KE','KG','LA','LB','MO','MG','MW','MY','MV','MH','MU','FM','MD','ME','MA','MZ','NA','NP','NI','NU','PW','QA','RU','RW','WS','SA','RS','SC','SO','LK','VC','SR','SY','TJ','TZ','GM','TL','TR','TV','UA','AE','UZ','VU','ZW'],
+         incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'BT',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Bhutan',   // Display name
+  alpha2: 'BT',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['BT','BD','BB','BI','KH','CV','CO','KM','CK','DJ','DM','EC','EG','GW','HT','HK','IN','IR','JO','KE','KW','LA','LB','MO','MG','MW','MV','MU','FM','MZ','NP','NI','NU','PW','PA','PH','RW','WS','SC','SG','SO','LK','LC','VC','SR','TZ','TH','GM','TL','TV','ZM','ZW','BT'],
+         incompatibleWith: [      // List of other passport codes this cannot be combined with
+  ],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'BA',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Bosnia and Herzegovina',   // Display name
+  alpha2: 'BA',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AL','AD','AR','AM','AW','AT','BD','BY','BE','BO','BQ','BR','BG','BI','KH','CV','CL','CN','CO','KM','CK','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EE','SZ','ET','FO','FI','FR','GF','PF','GP','GE','DE','GR','GL','GD','GW','HT','HK','HU','IS','ID','IR','IT','JM','JO','KE','XK','KG','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','FM','MD','MC','ME','MZ','NP','NL','NC','NU','MK','NO','PW','PA','PL','PT','QA','RE','RO','RU','RW','WS','SM','RS','SC','SG','SK','SI','SO','KR','ES','LK','LC','MF','VC','SR','SE','CH','TJ','TZ','GM','TL','TT','TN','TR','TV','UA','AE','UZ','VA','ZM','ZW','BA'],
+  allowedWith:['RS','HR','SE'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'RS',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Serbia',   // Display name
+  alpha2: 'RS',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AL','AD','AG','AR','AM','AW','AT','AZ','BD','BB','BY','BE','BO','BQ','BA','BR','BG','BI','KH','CV','CL','CN','CO','KM','CK','CR','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','SZ','ET','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GR','GL','GD','GW','HT','HK','HU','IS','ID','IR','IL','IT','JM','JP','JO','KZ','KE','XK','KW','KG','LA','LV','LB','LI','LT','LU','MO','MG','MV','MT','MU','YT','FM','MD','MC','MN','ME','MZ','NP','NL','NC','NI','NU','MK','NO','OM','PW','PS','PA','PE','PL','PT','QA','RE','RO','RU','RW','WS','SM','SC','SG','SK','SI','SO','KR','ES','LK','KN','MF','VC','SR','SE','CH','TJ','TZ','TH','GM','TL','TT','TR','TV','UA','AE','UY','UZ','VU','VA','ZM','ZW','RS'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'SE',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Sweden',   // Display name
+  alpha2: 'SE',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AL','AS','AD','AO','AI','AG','AR','AM','AW','AU','AT','BS','BH','BD','BB','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BN','BG','BI','KH','CA','CV','KY','CL','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','GY','HT','HN','HK','HU','IS','ID','IR','IQ','IE','IL','IT','JM','JP','JO','KZ','KE','KI','XK','KW','KG','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','MP','NO','OM','PW','PS','PA','PY','PE','PH','PL','PT','PR','QA','RE','RO','RW','WS','SM','ST','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','CH','TW','TJ','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','VE','VN','ZM','ZW','SE'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'IL',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Israel',   // Display name
+  alpha2: 'IL',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['AL','AS','AD','AO','AI','AR','AM','AW','AT','AZ','BS','BB','BY','BE','BZ','BM','BQ','BA','BW','BR','BG','BI','KH','CA','CV','KY','CF','CL','CO','KM','CK','CR','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','SV','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GU','GT','GW','HT','HN','HK','HU','IS','IE','IT','JM','JP','JO','KZ','KE','KI','XK','KG','LA','LV','LS','LI','LT','LU','MO','MG','MW','MT','MH','MU','YT','MX','FM','MD','MC','MN','ME','MS','MZ','MM','NA','NR','NP','NL','NC','NZ','NI','NU','MK','MP','NO','PW','PS','PA','PG','PY','PE','PH','PL','PT','PR','RE','RO','RU','RW','WS','SM','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TJ','TZ','TH','TL','TO','TT','TR','TC','TV','UA','AE','GB','US','UY','VI','UZ','VU','VA','ZM','ZW'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
 });
     finalizeCountries();
 
@@ -395,35 +527,69 @@ addCountry({
         const minCap = currentMaxAllowedCount(code);
         if ((selected.size + 1) > minCap) return false;
 
+        // If nothing selected, allow any first passport
+        if (selected.size === 0) return true;
+
         for (const s of selected) {
           const sel = PASSPORTS.get(s);
-          if (sel.incompatibleWith.has(cand.code) || cand.incompatibleWith.has(sel.code)) return false;
+
+          // Hard incompatibility
+          if (sel.incompatibleWith.has(cand.code) || cand.incompatibleWith.has(sel.code)) {
+            return false;
+          }
+
+          // Allowed-with restrictions
+          if (sel.allowedWith.size > 0 && !sel.allowedWith.has(cand.code)) {
+            return false;
+          }
+          if (cand.allowedWith.size > 0 && !cand.allowedWith.has(sel.code)) {
+            return false;
+          }
         }
         return true;
       }
 
       function explainDisabledReasons() {
-        const lines = [];
-        const cap = currentMaxAllowedCount();
-        if (cap !== Infinity) {
-          const capping = Array.from(selected).filter(c => PASSPORTS.get(c).maxCitizenships === cap)
-                               .map(c => PASSPORTS.get(c).name);
-          lines.push(cap === 1
-            ? `Citizenship cap: ${capping.join(', ')} allows only one citizenship (no dual).`
-            : `Citizenship cap: ${capping.join(', ')} limits total citizenships to ${cap}.`);
-        }
-        for (const s of selected) {
-          const sel = PASSPORTS.get(s);
-          if (sel.incompatibleWith.size) {
-            const names = Array.from(sel.incompatibleWith).filter(c => PASSPORTS.has(c)).map(c => PASSPORTS.get(c).name);
-            if (names.length) lines.push(`${sel.name} is incompatible with: ${names.join(', ')}.`);
-          }
-          if (sel.notes) lines.push(`${sel.name}: ${sel.notes}`);
-        }
-        notesEl.innerHTML = lines.length
-          ? `<ul>${lines.map(l => `<li>${l}</li>`).join('')}</ul>`
-          : `<span class="muted">No active restrictions. Select passports to see notes.</span>`;
+  const lines = [];
+  const cap = currentMaxAllowedCount();
+  if (cap !== Infinity) {
+    const capping = Array.from(selected)
+      .filter(c => PASSPORTS.get(c).maxCitizenships === cap)
+      .map(c => PASSPORTS.get(c).name);
+    lines.push(
+      cap === 1
+        ? `Citizenship cap: ${capping.join(', ')} allows only one citizenship (no dual).`
+        : `Citizenship cap: ${capping.join(', ')} limits total citizenships to ${cap}.`
+    );
+  }
+  for (const s of selected) {
+    const sel = PASSPORTS.get(s);
+
+    if (sel.incompatibleWith.size) {
+      const names = Array.from(sel.incompatibleWith)
+        .filter(c => PASSPORTS.has(c))
+        .map(c => PASSPORTS.get(c).name);
+      if (names.length) {
+        lines.push(`${sel.name} is incompatible with: ${names.join(', ')}.`);
       }
+    }
+
+    // NEW: generic note for allowedWith cases
+    if (sel.allowedWith && sel.allowedWith.size) {
+      const allowedNames = Array.from(sel.allowedWith)
+        .filter(c => PASSPORTS.has(c))
+        .map(c => PASSPORTS.get(c).name);
+      lines.push(`${sel.name} permits dual nationality only with: ${allowedNames.join(', ')}.`);
+    }
+
+    if (sel.notes) {
+      lines.push(`${sel.name}: ${sel.notes}`);
+    }
+  }
+  notesEl.innerHTML = lines.length
+    ? `<ul>${lines.map(l => `<li>${l}</li>`).join('')}</ul>`
+    : `<span class="muted">No active restrictions. Select passports to see notes.</span>`;
+}
 
       function updateCheckboxStates() {
         const items = listEl.querySelectorAll('li');
