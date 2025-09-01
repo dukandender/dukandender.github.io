@@ -515,6 +515,204 @@ addCountry({
   visaFree:['AL','AD','AO','AI','AG','AR','AM','AW','AT','BS','BD','BY','BE','BZ','BM','BO','BQ','BA','BW','BR','VG','BG','BI','KH','CA','CV','KY','CL','CN','CO','KM','CK','CR','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','GQ','EE','SZ','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GH','GI','GR','GL','GD','GT','GW','GY','HT','HN','HK','HU','IS','IR','IE','IL','IT','JM','JP','JO','KE','KI','XK','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','MX','FM','MD','MC','ME','MS','MZ','NP','NL','NC','NI','NU','MK','NO','PW','PS','PA','PE','PH','PL','PT','RE','RO','RW','WS','SM','SA','SN','RS','SC','SL','SG','SK','SI','SB','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TZ','GM','TL','TO','TT','TN','TR','TC','TV','UG','AE','GB','UY','UZ','VU','VA','VE','ZM','ZW','BB'],
   maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
 });
+addCountry({
+  code: 'BY',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Belarus',   // Display name
+  alpha2: 'BY',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['BY','AL','AG','AR','AM','AZ','BB','BO','BR','BI','KH','CV','CN','CO','KM','CK','CU','DJ','DM','EC','ET','GE','GD','GW','HT','HK','ID','IR','IL','JM','JO','KZ','KE','KG','LA','LB','MO','MG','MW','MY','MV','MU','FM','MD','MN','ME','MZ','NA','NP','NI','NU','PW','PS','PA','PE','QA','RU','RW','WS','RS','SC','SO','LK','KN','VC','SR','SY','TJ','TZ','TH','GM','TL','TR','TV','UA','AE','UZ','VU','VE','VN','ZM','ZW'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'GE',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Georgia',   // Display name
+  alpha2: 'GE',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['GE','AL','AD','AG','AR','AM','AT','AZ','BS','BH','BD','BB','BY','BE','BO','BA','BR','BG','BI','KH','CV','CL','CN','CO','KM','CK','HR','CY','CZ','DK','DJ','DM','EC','EG','EE','ET','FO','FJ','FI','FR','DE','GR','GL','GD','GW','HT','HK','HU','IS','IR','IL','IT','JM','JO','KZ','KE','KW','KG','LA','LV','LB','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','FM','MD','MC','ME','MZ','NP','NL','NC','NI','NU','MK','NO','OM','PW','PS','PY','PL','PT','QA','RO','RU','RW','WS','SM','SA','RS','SC','SK','SI','SO','ES','LK','KN','LC','VC','SR','SE','CH','SY','TJ','TZ','TH','TL','TR','TV','UA','AE','UY','UZ','VA','ZM','ZW'],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+  notes: 'Georgia does allow dual citizenship by way of presidential exception, but you are not talented or important enough to qualify for this.'
+});
+addCountry({
+  code: 'GW',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Guinea-Bissau',   // Display name
+  alpha2: 'GW',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['GW','BD','BB','BJ','BO','BF','BI','KH','CV','KM','CK','CI','DJ','DM','ET','GH','GN','HT','IR','KE','LR','MO','MG','MW','MV','ML','MR','MU','FM','MZ','NA','NP','NI','NE','NG','NU','PW','PH','RW','WS','ST','SN','SC','SL','SG','SO','LK','LC','VC','SR','GM','TL','TG','TN','TV'],
+  maxCitizenships: Infinity, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'ET',              // Unique code for the passport (use ISO alpha-2 or ISO alpha-3)
+  name: 'Ethiopia',   // Display name
+  alpha2: 'ET',            // ISO alpha-2 (used to auto-pull flag from /flags/us.png)
+  visaFree:['ET','BD','BB','BJ','BO','BI','KH','CV','KM','CK','DJ','DM','ER','GH','GW','HT','IR','KE','LA','MO','MG','MV','MU','FM','MZ','NI','NU','PW','PH','RW','WS','SN','SC','SG','SO','SS','LK','LC','VC','SR','TZ','TH','GM','TL','TV','ZW'],
+  maxCitizenships: 1, // Change to 1 for no dual, 2 for no triple, etc.
+});
+addCountry({
+  code: 'YE',
+  name: 'Yemen',
+  alpha2: 'YE',
+  visaFree: ['BI','KH','CV','KM','CK','DJ','DM','GW','KE','LA','LB','MO','MG','MY','MV','FM','MZ','NP','NU','PW','RW','WS','SC','SO','LK','VC','SD','SR','SY','TJ','TL','TV','YE'],
+  incompatibleWith: ['IL'], // Israel
+  maxCitizenships: Infinity,
+});
+addCountry({
+  code: 'BI',
+  name: 'Burundi',
+  alpha2: 'BI',
+  visaFree: ['BD','BB','BJ','BO','KH','CV','CF','KM','CD','CK','DJ','DM','EC','ET','GH','GW','HT','IR','KE','MO','MG','MV','MU','FM','MZ','NA','NP','NI','NU','PW','PH','RW','WS','SN','SC','SG','SO','LK','LC','VC','SR','TZ','GM','TL','TV','UG','ZM','ZW','BI'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity,
+});
+addCountry({
+  code: 'CV',
+  name: 'Cabo Verde',
+  alpha2: 'CV',
+  visaFree: ['AO','BS','BD','BB','BJ','BO','BF','BI','KH','KM','CK','CI','DJ','DM','EC','ET','GH','GN','GW','HT','HK','IR','JO','KE','LA','LR','MO','MG','MW','MY','MV','ML','MH','MU','FM','MA','MZ','NA','NP','NI','NE','NG','NU','PW','PH','RU','RW','WS','ST','SN','SC','SL','SG','SO','ZA','LK','LC','VC','SR','TZ','GM','TL','TG','TN','TV','ZM','ZW','CV'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'DJ',
+  name: 'Djibouti',
+  alpha2: 'DJ',
+  visaFree: ['BD','BB','BJ','BO','BI','KH','CV','KM','CK','DM','EC','ET','GH','GW','HT','HK','IR','KE','LA','LB','MO','MG','MV','MU','FM','MZ','NA','NP','NI','NU','PW','PH','RW','WS','SN','SC','SG','SO','LK','LC','VC','SR','TZ','GM','TL','TV','ZM','DJ'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'DM',
+  name: 'Dominica',
+  alpha2: 'DM',
+  visaFree: ['AD','AI','AG','AR','AM','AW','AT','BS','BD','BB','BY','BE','BZ','BJ','BO','BQ','BA','BW','BR','VG','BG','BI','KH','CV','KY','CN','CO','KM','CK','CR','HR','CU','CW','CY','CZ','DK','DJ','DO','EC','EG','EE','SZ','FO','FJ','FI','FR','GF','PF','GP','DE','GI','GR','GL','GD','GW','GY','HT','HK','HU','IS','IR','IL','IT','JM','JO','KE','KI','XK','LA','LV','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MU','YT','FM','MD','MC','ME','MS','MZ','NP','NL','NC','NI','NU','NO','PW','PS','PA','PE','PH','PL','PT','RE','RO','RU','RW','WS','SM','RS','SC','SL','SG','SK','SI','SB','SO','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TJ','TZ','TH','GM','TL','TO','TT','TR','TC','TV','UA','UY','UZ','VU','VA','VE','ZM','ZW','DM'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'HT',
+  name: 'Haiti',
+  alpha2: 'HT',
+  visaFree: ['AO','BD','BB','BJ','BO','BI','KH','CV','KM','CK','DJ','DM','EG','GD','GW','HK','IR','IL','JO','KE','KI','LA','MO','MG','MW','MY','MV','MU','FM','MZ','NP','NU','PW','PS','PH','RW','WS','SN','SC','SG','SO','KR','LK','SR','TW','TZ','GM','TL','TR','TV','ZM','ZW','HT'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'KE',
+  name: 'Kenya',
+  alpha2: 'KE',
+  visaFree: ['AG','BS','BB','BJ','BO','BW','VG','BI','KH','CV','KY','KM','CD','CK','CU','DJ','DM','ER','SZ','ET','FJ','GH','GD','GW','HT','HK','ID','IR','JM','JO','KI','LA','LS','MO','MG','MW','MY','MV','ML','MU','FM','MS','MZ','NA','NP','NU','PW','PH','RW','WS','SN','SC','SL','SG','SO','ZA','SS','LK','KN','LC','VC','SD','TZ','GM','TL','TT','TV','UG','VU','ZM','ZW','KE'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity,
+});
+addCountry({
+  code: 'KH',
+  name: 'Cambodia',
+  alpha2: 'KH',
+  visaFree: ['BD','BB','BN','BI','CV','KM','CK','DJ','DM','EC','EG','GW','HT','ID','IR','KE','KW','LA','MO','MG','MW','MY','MV','MH','MU','FM','MZ','MM','NA','NP','NI','NU','PW','PA','PH','RW','WS','SC','SL','SG','SO','LK','LC','VC','SR','TZ','TH','GM','TL','TV','VN','KH'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'KM',
+  name: 'Comoros',
+  alpha2: 'KM',
+  visaFree: ['BD','BJ','BO','BI','KH','CV','CK','DJ','DM','EC','ET','GH','GW','HT','HK','IR','KE','LA','LB','MO','MG','MW','MY','MV','MU','FM','MZ','NA','NP','NI','NU','PW','PA','PH','RW','WS','SN','SC','SG','SO','LK','LC','VC','SR','TZ','GM','TL','TN','TV','UG','ZM','ZW','KM'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'LK',
+  name: 'Sri Lanka',
+  alpha2: 'LK',
+  visaFree: ['BS','BB','BO','VG','BI','KH','CV','KM','CK','DJ','DM','GD','GW','HT','KE','KI','LA','LS','MG','MW','MV','MU','FM','MS','MZ','NP','NU','PW','RW','WS','SC','SL','SG','SO','KN','VC','TJ','TH','GM','TL','TV','VU','LK'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity,
+ });
+ addCountry({
+  code: 'MG',
+  name: 'Madagascar',
+  alpha2: 'MG',
+  visaFree: ['AO','BD','BB','BJ','BO','BI','KH','CV','KM','CK','DJ','DM','EC','SV','SZ','ET','GH','GT','GW','HT','HN','HK','IR','KE','LA','LS','MO','MW','MY','MV','MU','FM','MZ','NA','NP','NI','NU','PW','PA','PH','RW','WS','SN','SC','SG','SO','ZA','LK','LC','VC','SR','TZ','GM','TL','TV','UG','ZM','ZW','MG'],
+  incompatibleWith: [],
+  maxCitizenships: 1
+});
+addCountry({
+  code: 'MO',
+  name: 'Macao',
+  alpha2: 'MO',
+  visaFree: ['AL','AD','AI','AG','AR','AM','AW','AT','BH','BB','BY','BE','BO','BQ','BA','BR','VG','BN','BG','BI','KH','CV','CL','KM','CK','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GI','GR','GL','GD','GW','HT','HK','HU','IS','IR','IE','IL','IT','JP','JO','KZ','KE','KI','XK','KG','LA','LV','LB','LI','LT','LU','MG','MW','MY','MV','ML','MT','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NP','NL','NC','NZ','NI','NU','MK','NO','OM','PW','PS','PH','PL','PT','QA','RE','RO','RU','RW','WS','SM','SA','RS','SC','SL','SG','SK','SI','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TW','TZ','TH','TL','TO','TR','TV','GB','UY','UZ','VU','VA','ZW','MO'],
+  incompatibleWith: [],
+  maxCitizenships: 1,
+ });
+ addCountry({
+  code: 'MV',
+  name: 'Maldives',
+  alpha2: 'MV',
+  visaFree: ['AI','AG','BS','BD','BB','BZ','BM','BT','BO','BW','VG','BN','BI','KH','CV','KY','CN','KM','CK','CR','DJ','DM','EC','EG','SZ','FJ','GI','GD','GW','GY','HT','HK','IN','ID','IR','IE','JM','JO','KZ','KE','KI','XK','KG','LA','LS','MO','MG','MW','MY','MH','MU','FM','MN','MS','MA','MZ','NP','NI','NU','PK','PW','PA','PH','QA','RU','RW','WS','SA','SC','SG','SB','SO','ZA','LK','SH','KN','LC','VC','SR','TJ','TZ','TH','GM','TL','TT','TN','TR','TV','AE','GB','VU','ZM','ZW','MV'],
+  incompatibleWith: [], // optional, if you want to reflect the entry ban as an “incompatibility”
+  maxCitizenships: Infinity,
+});
+addCountry({
+  code: 'MZ',
+  name: 'Mozambique',
+  alpha2: 'MZ',
+  visaFree: [/* visa-free/VOA list, ~62 countries as of 2025 */],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'PW',
+  name: 'Palau',
+  alpha2: 'PW',
+  visaFree: ['AS','AD','AO','AI','AT','BD','BB','BE','BZ','BM','BO','BA','VG','BG','BI','KH','CV','CO','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','EC','EG','EE','FO','FJ','FI','FR','PF','DE','GR','GL','GD','GU','GW','HT','HK','HU','IS','IR','IL','IT','JO','KE','KI','XK','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','MX','FM','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','MP','NO','PS','PA','PG','PE','PH','PL','PT','PR','RO','RU','RW','WS','SM','SN','RS','SC','SG','SK','SI','SB','SO','KR','ES','LK','SH','LC','VC','SR','SE','CH','TW','TZ','GM','TL','TO','TV','GB','US','VI','VU','VA','ZM','ZW','PW'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'RW',
+  name: 'Rwanda',
+  alpha2: 'RW',
+  visaFree: ['AO','BS','BD','BB','BJ','BI','KH','CV','CF','KM','CD','CG','CK','DJ','DM','EC','ET','GH','GD','GN','GW','HT','ID','IR','JO','KE','KI','LA','MO','MG','MV','ML','MU','FM','MS','MZ','NA','NP','NI','NU','PW','PH','QA','WS','ST','SN','SC','SL','SG','SO','SS','LK','KN','VC','SR','TZ','GM','TL','TV','UG','VU','ZM','ZW','RW'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'SC',
+  name: 'Seychelles',
+  alpha2: 'SC',
+  visaFree: ['AL','DZ','AD','AO','AI','AG','AW','AT','BS','BD','BB','BY','BE','BZ','BJ','BM','BO','BQ','BA','BW','BR','VG','BG','BI','KH','CV','KY','CN','KM','CK','CR','CI','HR','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','EE','SZ','ET','FO','FJ','FI','FR','GF','PF','GP','GE','DE','GH','GI','GR','GL','GD','GW','HT','HK','HU','IS','ID','IR','IE','IT','JM','JO','KZ','KE','KI','XK','LA','LV','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','FM','MD','MC','ME','MS','MZ','NA','NP','NL','NC','NZ','NI','NG','NU','MK','NO','OM','PW','PA','PH','PL','PT','QA','RE','RO','RU','RW','WS','SM','SA','SN','RS','SL','SG','SK','SI','SO','ZA','KR','ES','LK','SH','KN','LC','MF','VC','SR','SE','CH','TZ','TH','GM','TL','TO','TT','TN','TR','TC','TV','UG','AE','GB','UY','VU','VA','ZM','ZW','SC'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'SO',
+  name: 'Somalia',
+  alpha2: 'SO',
+  visaFree: ['BD','BJ','BI','KH','CV','KM','CK','DJ','DM','ET','GH','GW','HT','KE','LA','LB','MO','MG','MY','MV','FM','MZ','NU','PW','RW','WS','SC','LK','VC','GM','TL','TV','SO'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'TL',
+  name: 'Timor-Leste',
+  alpha2: 'TL',
+  visaFree: ['AD','AO','AI','AT','BD','BB','BE','BA','VG','BG','BI','KH','CV','KM','CK','HR','CY','CZ','DK','DJ','DM','EC','EE','SZ','FO','FI','FR','PF','DE','GI','GR','GL','GW','HT','HK','HU','IS','ID','IR','IT','JO','KE','KI','XK','LA','LV','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','FM','MD','MC','ME','MS','MZ','NP','NL','NC','NU','NO','PW','PL','PT','RO','RW','WS','SM','ST','SC','SL','SG','SK','SI','SO','ES','LK','SH','LC','VC','SR','SE','CH','TZ','TH','GM','TV','VA','TL'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'TV',
+  name: 'Tuvalu',
+  alpha2: 'TV',
+  visaFree: ['AD','AO','AI','AG','AT','BS','BD','BB','BE','BZ','BM','BO','BA','BW','VG','BG','BI','KH','CV','KY','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','EE','SZ','FO','FJ','FI','FR','PF','DE','GI','GR','GL','GD','GT','GW','HT','HN','HK','HU','IS','IR','IE','IT','JM','JO','KE','KI','XK','LA','LV','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','FM','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','NO','PW','PA','PG','PE','PH','PL','PT','RO','RW','WS','SM','SN','SC','SL','SG','SK','SI','SB','SO','KR','ES','LK','SH','KN','LC','VC','SR','SE','CH','TW','TZ','GM','TL','TO','TT','GB','VU','VA','ZM','ZW','TV'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+addCountry({
+  code: 'WS',
+  name: 'Samoa',
+  alpha2: 'WS',
+  visaFree: ['AD','AI','AG','AT','BS','BD','BB','BE','BZ','BM','BO','BA','BW','VG','BG','BI','KH','CA','CV','KY','CO','KM','CK','CR','HR','CY','CZ','DK','DJ','DM','EC','EG','EE','SZ','FO','FJ','FI','FR','GF','PF','GP','DE','GI','GR','GL','GD','GW','HT','HK','HU','IS','IR','IE','IL','IT','JM','JO','KE','KI','XK','LA','LV','LB','LS','LI','LT','LU','MO','MG','MW','MY','MV','MT','MH','MU','YT','FM','MD','MC','ME','MS','MZ','NR','NP','NL','NC','NI','NU','NO','PW','PA','PG','PE','PH','PL','PT','RE','RO','RU','RW','SM','SN','SC','SL','SG','SK','SI','SB','SO','KR','ES','LK','SH','LC','VC','SR','SE','CH','TZ','GM','TL','TO','TT','TV','GB','VU','VA','ZM','ZW','WS'],
+  incompatibleWith: [],
+  maxCitizenships: Infinity
+});
+
     finalizeCountries();
 
     /* ===================== DOM & LOGIC ===================== */
